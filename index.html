@@ -3,166 +3,506 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GGDB – Soluzioni su misura per il mondo TCG</title>
-<meta name="description" content="Progettiamo soluzioni digitali su misura per chi lavora nel mondo TCG. Prenota una call di analisi.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230F1115'/%3E%3Cpath d='M9 6l7 9v11l-7-9z' fill='%23F5C542'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@500&amp;display=swap">
-<style>
-body{margin:0;background:#0F1115}
-a{color:#F2F0EA}a:hover{color:#FFFFFF}
-</style>
-<style>html{scroll-behavior:smooth}*{box-sizing:border-box}</style>
+<title>GGDB – Soluzioni digitali per il mondo TCG</title>
+<meta name="description" content="Le tue carte hanno un valore. Il tuo tempo anche. Prima analisi gratuita fino al 31/12.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://borficchiadavide.github.io/landingGGDB/">
+<meta property="og:title" content="GGDB – Soluzioni digitali per il mondo TCG">
+<meta property="og:description" content="Le tue carte hanno un valore. Il tuo tempo anche. Software su misura per chi vende carte collezionabili.">
+<meta property="og:image" content="https://borficchiadavide.github.io/landingGGDB/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231b1c1e'/%3E%3Cpath d='M9 6l7 9v11l-7-9z' fill='%23c5f23a'/%3E%3C/svg%3E">
+<script>
+try {
+  var q = new URLSearchParams(location.search).get('notrack');
+  if (q === '1') localStorage.setItem('umami.disabled', '1');
+  if (q === '0') localStorage.removeItem('umami.disabled');
+} catch (e) {}
+</script>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="bbd655cf-6ce8-4dc6-accc-16206d7ab82c" data-domains="ggdb-tcg.github.io"></script>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div style="background: #0F1115; color: #F2F0EA; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 17px; line-height: 1.55; min-height: 100vh">
 
-<!-- NAV -->
-<header style="max-width: 1100px; margin: 0 auto; padding: 24px 24px 0; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between">
-<div style="display: flex; align-items: center">
-<svg role="img" aria-label="GGDB" width="145" height="36" viewBox="0 -2 404 104"><g fill="none" stroke="#F2F0EA" stroke-width="22" stroke-linejoin="round"><path d="M86 11 H30 A19 19 0 0 0 11 30 V70 A19 19 0 0 0 30 89 H60 A19 19 0 0 0 79 70 V52 H50"></path><path d="M186 11 H130 A19 19 0 0 0 111 30 V70 A19 19 0 0 0 130 89 H160 A19 19 0 0 0 179 70 V52 H150"></path><path stroke-linejoin="miter" d="M211 11 V89 H260 A19 19 0 0 0 279 70 V30 A19 19 0 0 0 260 11 Z"></path></g><path fill="#F2F0EA" d="M300 0 H365.5 A30.5 30.5 0 0 1 389 50 A30.5 30.5 0 0 1 365.5 100 H300 V44 L322 72 V78 H365.5 A8.5 8.5 0 0 0 365.5 61 H328 V39 H365.5 A8.5 8.5 0 0 0 365.5 22 H317 Z"></path><path fill="#F5C542" d="M300 7 L322 35 V64 L300 36 Z"></path></svg>
+<!-- NAV (fissa) -->
+<header class="nav">
+<div class="nav-in">
+<a class="brand" href="#top" aria-label="GGDB – torna all'inizio">
+<svg class="logo" role="img" aria-label="GGDB" width="121" height="30" viewBox="0 -2 404 104"><g class="g"><path d="M86 11 H30 A19 19 0 0 0 11 30 V70 A19 19 0 0 0 30 89 H60 A19 19 0 0 0 79 70 V52 H50"></path><path d="M186 11 H130 A19 19 0 0 0 111 30 V70 A19 19 0 0 0 130 89 H160 A19 19 0 0 0 179 70 V52 H150"></path><path stroke-linejoin="miter" d="M211 11 V89 H260 A19 19 0 0 0 279 70 V30 A19 19 0 0 0 260 11 Z"></path></g><path class="d" d="M300 0 H365.5 A30.5 30.5 0 0 1 389 50 A30.5 30.5 0 0 1 365.5 100 H300 V44 L322 72 V78 H365.5 A8.5 8.5 0 0 0 365.5 61 H328 V39 H365.5 A8.5 8.5 0 0 0 365.5 22 H317 Z"></path><path class="m" d="M300 7 L322 35 V64 L300 36 Z"></path></svg>
+<span class="payoff">Soluzioni<br>digitali</span>
+</a>
+<nav class="nav-links" aria-label="Sezioni">
+<a href="#vantaggi">Vantaggi</a>
+<a href="#metodo">Metodo</a>
+<a href="#chi-siamo">Chi siamo</a>
+<a href="#faq">FAQ</a>
+</nav>
+<div class="nav-cta">
+<a class="btn btn-ghost nav-wa" href="https://wa.me/393336397137?text=Ciao%21%20Ho%20preso%20il%20vostro%20biglietto%20a%20Gamics%20Cesena%20e%20vorrei%20prenotare%20i%2020%20minuti%20gratuiti.%20Quello%20che%20mi%20fa%20perdere%20pi%C3%B9%20tempo%20o%20soldi%20%C3%A8%3A%20" target="_blank" rel="noopener">WhatsApp</a>
+<a class="btn" href="#contatti">20 minuti gratis</a>
 </div>
-<a href="https://calendar.app.google/YJnjoNa6VZvuCASM8" target="_blank" rel="noopener" style="text-decoration: none; background: #F5C542; color: #14120A; padding: 12px 18px; border-radius: 8px; font-weight: 600; font-size: 15px">Prenota una call</a>
+</div>
 </header>
 
+<main>
 <!-- HERO -->
-<section style="max-width: 1100px; margin: 0 auto; padding: 88px 24px 96px">
-<p style="margin: 0 0 24px; font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #F5C542; letter-spacing: 0.06em; text-transform: uppercase">Lucca Comics &amp; Games 2026</p>
-<h1 style="margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800; font-size: clamp(38px, 6vw, 70px); line-height: 1.04; letter-spacing: -0.02em; max-width: 920px">Ci siamo conosciuti a Lucca. <span style="color: #F5C542">Ripartiamo dal tuo modo di lavorare.</span></h1>
-<p style="margin: 32px 0 0; font-size: 20px; color: #C3C8D2; max-width: 680px">Progettiamo soluzioni digitali su misura per chi lavora nel mondo TCG. In una prima call approfondiamo i processi della tua attività e valutiamo insieme dove strumenti, software o automazioni possono semplificare il lavoro.</p>
-<div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: center; margin-top: 40px">
-<a href="https://calendar.app.google/YJnjoNa6VZvuCASM8" target="_blank" rel="noopener" style="text-decoration: none; background: #F5C542; color: #14120A; padding: 16px 24px; border-radius: 10px; font-weight: 600; display: inline-flex; align-items: center; gap: 10px">
-<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18"></path><path d="M8 3v4"></path><path d="M16 3v4"></path></svg>
-Prenota una call di analisi</a>
-<span style="font-size: 16px; color: #A9AFBB">Preferisci parlarne prima? <a href="https://wa.me/393336397137" target="_blank" rel="noopener" style="color: #F2F0EA; font-weight: 600">Scrivici su WhatsApp</a></span>
+<section id="top" class="wrap hero">
+<div class="hero-top">
+<p class="eyebrow">Gamics Cesena</p>
+<a class="pill" href="#contatti">
+<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v9H4v-9"></path><path d="M2 7h20v5H2z"></path><path d="M12 21V7"></path><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>
+Prima analisi gratuita fino al 31/12 →
+</a>
+</div>
+<h1>Le tue carte hanno un valore. <span>Il tuo tempo anche.</span></h1>
+<p class="big">Partiamo dal tuo modo di lavorare.</p>
+<p class="sub">Analizziamo la tua attività e costruiamo soluzioni digitali su misura: tu guadagni tempo per i tuoi clienti e le tue carte.</p>
+<p class="ask">Raccontaci cosa ti fa perdere più tempo o soldi:</p>
+<div class="btn-row">
+<a class="btn btn-lg" href="#contatti">Prenota 20 minuti gratis</a>
+<a class="btn btn-lg btn-ghost" href="https://wa.me/393336397137?text=Ciao%21%20Ho%20preso%20il%20vostro%20biglietto%20a%20Gamics%20Cesena%20e%20vorrei%20prenotare%20i%2020%20minuti%20gratuiti.%20Quello%20che%20mi%20fa%20perdere%20pi%C3%B9%20tempo%20o%20soldi%20%C3%A8%3A%20" target="_blank" rel="noopener">
+<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.4 8.4 0 1 1 21 11.5z"></path></svg>
+Scrivici su WhatsApp</a>
 </div>
 </section>
 
-<!-- AMBITI -->
-<section style="background: #151820; border-top: 1px solid #232731; border-bottom: 1px solid #232731">
-<div style="max-width: 1100px; margin: 0 auto; padding: 80px 24px">
-<h2 style="margin: 0 0 12px; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: clamp(28px, 3.5vw, 40px); line-height: 1.1">Dove possiamo intervenire</h2>
-<p style="margin: 0 0 40px; color: #C3C8D2; max-width: 640px">Alcuni esempi di processi che possiamo analizzare insieme e, se ha senso, migliorare con interventi su misura.</p>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 32px">
-<div style="display: flex; flex-direction: column; gap: 8px">
-<div style="font-family: 'IBM Plex Mono', monospace; color: #F5C542; font-size: 14px">01</div>
-<h3 style="margin: 0; font-size: 20px; font-weight: 600">Magazzino</h3>
-<p style="margin: 0; color: #C3C8D2">Ubicazioni, quantità e reperibilità dello stock.</p>
+<!-- VANTAGGI -->
+<section id="vantaggi" class="band adv">
+<div class="wrap pad">
+<p class="eyebrow">Cosa cambia per te</p>
+<h2 class="h2">Meno tempo a rincorrere il lavoro, più tempo per far crescere la tua attività.</h2>
+<p class="lead">Non esiste una soluzione uguale per tutti: partiamo dalla tua giornata di lavoro e interveniamo dove il beneficio è più grande.</p>
+<div class="cards">
+
+<div class="card">
+<svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg>
+<h3>Trovi ogni carta al primo colpo</h3>
+<p>Niente più ricerche tra box e raccoglitori: sai sempre cosa hai e dove si trova, in negozio o in magazzino.</p>
 </div>
-<div style="display: flex; flex-direction: column; gap: 8px">
-<div style="font-family: 'IBM Plex Mono', monospace; color: #F5C542; font-size: 14px">02</div>
-<h3 style="margin: 0; font-size: 20px; font-weight: 600">Acquisizione</h3>
-<p style="margin: 0; color: #C3C8D2">Ingresso delle carte e riduzione dei passaggi manuali.</p>
+
+<div class="card">
+<svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"></path><path d="M15 7h6v6"></path></svg>
+<h3>Prezzi in linea con il mercato</h3>
+<p>Smetti di inseguire le quotazioni a mano e non rischi di svendere le carte di valore.</p>
 </div>
-<div style="display: flex; flex-direction: column; gap: 8px">
-<div style="font-family: 'IBM Plex Mono', monospace; color: #F5C542; font-size: 14px">03</div>
-<h3 style="margin: 0; font-size: 20px; font-weight: 600">Prezzi e catalogo</h3>
-<p style="margin: 0; color: #C3C8D2">Regole di valorizzazione e aggiornamento, da definire sul caso concreto.</p>
+
+<div class="card">
+<svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5 9 5 9-5z"></path><path d="M3 8v8l9 5 9-5V8"></path><path d="M12 13v8"></path></svg>
+<h3>Ordini evasi senza affanni</h3>
+<p>Gestisci le vendite di tutti i canali da un unico posto, senza vendere due volte la stessa carta.</p>
 </div>
-<div style="display: flex; flex-direction: column; gap: 8px">
-<div style="font-family: 'IBM Plex Mono', monospace; color: #F5C542; font-size: 14px">04</div>
-<h3 style="margin: 0; font-size: 20px; font-weight: 600">Vendite e ordini</h3>
-<p style="margin: 0; color: #C3C8D2">Coordinamento tra canali, preparazione e spedizione.</p>
+
+<div class="card">
+<svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"></path><path d="M10 20V4"></path><path d="M16 20v-7"></path><path d="M22 20H2"></path></svg>
+<h3>Decisioni basate sui numeri</h3>
+<p>Dashboard chiare per vedere cosa vende, cosa resta fermo e dove guadagni davvero.</p>
+</div>
+
+<div class="card">
+<svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"></rect><path d="M9 8h6"></path><path d="M9 12h6"></path><path d="M9 16h3"></path></svg>
+<h3>Acquisti valutati in un attimo</h3>
+<p>Buylist sempre aggiornata e valutazione rapida delle collezioni: offerte in linea con il mercato, senza rischiare di pagare troppo.</p>
+</div>
+
+</div>
+
+<p class="more">E se ti serve altro (integrazioni, collegamento con il tuo hardware, automazioni) lo costruiamo su misura.</p>
+
+<!-- CTA ripetuta -->
+<div class="cta">
+<div class="cta-txt">
+<p class="t">Quale di questi ti farebbe risparmiare di più?</p>
+<p class="s">Parliamone in 20 minuti.</p>
+</div>
+<div class="btn-row">
+<a class="btn btn-lg" href="#contatti">Prenota 20 minuti gratis</a>
+<a class="btn btn-lg btn-ghost" href="https://wa.me/393336397137?text=Ciao%21%20Ho%20preso%20il%20vostro%20biglietto%20a%20Gamics%20Cesena%20e%20vorrei%20prenotare%20i%2020%20minuti%20gratuiti.%20Quello%20che%20mi%20fa%20perdere%20pi%C3%B9%20tempo%20o%20soldi%20%C3%A8%3A%20" target="_blank" rel="noopener">
+<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.4 8.4 0 1 1 21 11.5z"></path></svg>
+Scrivici su WhatsApp</a>
+</div>
+</div>
+</div>
+</section>
+
+<!-- METODO -->
+<section id="metodo" class="method">
+<div class="wrap pad">
+<p class="eyebrow">Il nostro metodo</p>
+<h2 class="h2">Metodo Deckbuilding</h2>
+<p class="lead">Come quando costruisci un mazzo: prima la strategia, poi le carte giuste, infine le prove prima del torneo. Quattro passi chiari, dal primo contatto alla soluzione in uso.</p>
+
+<div class="gantt">
+<div class="g-rows">
+
+<div class="g-row g-head">
+<div class="g-label"></div>
+<div class="g-axis"><span>Inizio</span><span>Soluzione in uso</span></div>
+</div>
+
+<div class="g-row">
+<div class="g-label">
+<div class="g-title"><span class="g-n">01</span><span class="g-name">Prima analisi gratuita</span><span class="g-tag">Fino al 31/12</span></div>
+<p>Una chiacchierata di 20 minuti: ci racconti come lavori e capiamo insieme dove vale la pena intervenire.</p>
+</div>
+<div class="g-track"><i style="grid-column: 1 / span 1"></i></div>
+</div>
+
+<div class="g-row">
+<div class="g-label">
+<div class="g-title"><span class="g-n">02</span><span class="g-name">Analisi approfondita e proposta</span></div>
+<p>Studiamo a fondo i tuoi processi e ti proponiamo fasi, tempi e costi chiari. Scegli tu da dove partire.</p>
+</div>
+<div class="g-track"><i style="grid-column: 2 / span 3"></i></div>
+</div>
+
+<div class="g-row">
+<div class="g-label">
+<div class="g-title"><span class="g-n">03</span><span class="g-name">Sviluppo e test</span></div>
+<p>Costruiamo e testiamo sul tuo lavoro reale, insieme a te.</p>
+</div>
+<div class="g-track"><i style="grid-column: 5 / span 6"></i></div>
+</div>
+
+<div class="g-row">
+<div class="g-label">
+<div class="g-title"><span class="g-n">04</span><span class="g-name">Consegna e crescita</span></div>
+<p>La soluzione entra in uso e cresce con la tua attività.</p>
+</div>
+<div class="g-track"><i style="grid-column: 11 / span 2"></i></div>
+</div>
+
+</div>
+</div>
+<p class="check">
+<svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M8 12l3 3 5-6"></path></svg>
+Nessun impegno oltre i primi 20 minuti: decidi tu, fase per fase.</p>
+
+<!-- CTA ripetuta -->
+<div class="cta on-surface">
+<div class="cta-txt">
+<p class="t">Il primo passo è semplice.</p>
+<p class="s">20 minuti per conoscerci, gratis fino al 31/12.</p>
+</div>
+<div class="btn-row">
+<a class="btn btn-lg" href="#contatti">Prenota 20 minuti gratis</a>
+<a class="btn btn-lg btn-ghost" href="https://wa.me/393336397137?text=Ciao%21%20Ho%20preso%20il%20vostro%20biglietto%20a%20Gamics%20Cesena%20e%20vorrei%20prenotare%20i%2020%20minuti%20gratuiti.%20Quello%20che%20mi%20fa%20perdere%20pi%C3%B9%20tempo%20o%20soldi%20%C3%A8%3A%20" target="_blank" rel="noopener">
+<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.4 8.4 0 1 1 21 11.5z"></path></svg>
+Scrivici su WhatsApp</a>
 </div>
 </div>
 </div>
 </section>
 
 <!-- CHI SIAMO -->
-<section id="chi-siamo">
-<div style="max-width: 1100px; margin: 0 auto; padding: 80px 24px; display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start">
-<div style="flex: 999 1 460px; min-width: 0">
-<p style="margin: 0 0 12px; font-family: 'IBM Plex Mono', monospace; font-size: 14px; color: #F5C542; letter-spacing: 0.06em; text-transform: uppercase">Chi siamo</p>
-<h2 style="margin: 0 0 20px; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: clamp(28px, 3.5vw, 40px); line-height: 1.1">Oltre dieci anni a progettare sistemi per grandi aziende.</h2>
-<p style="margin: 0; color: #C3C8D2; font-size: 18px; max-width: 560px">Siamo Giacomo e Davide. Da più di dieci anni facciamo consulenza e ingegnerizziamo processi informatici. Stanchi di fare i dipendenti, abbiamo deciso di metterci in proprio per inseguire la nostra passione: oggi portiamo la stessa esperienza nel mondo delle carte da collezione.</p>
+<section id="chi-siamo" class="rule">
+<div class="wrap pad">
+
+<div class="about">
+<div class="about-text">
+<p class="eyebrow">Chi siamo</p>
+<h2 class="h2">Ci piace giocare, ma facciamo sul serio.</h2>
+<p>Ciao! Siamo Giacomo e Davide. Abbiamo oltre 10 anni di esperienza tra consulenza, innovazione dei processi, piattaforme digitali e startup.</p>
 </div>
-<div style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
-<div style="border: 1px solid #2A2F3A; border-radius: 14px; padding: 22px 24px; background: #151820">
-<div style="display: flex; align-items: center; gap: 16px; margin-bottom: 14px">
-<img src="giacomo.jpg" alt="Giacomo" style="width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 2px solid #F5C542; background: #FFFFFF; flex: none">
+
+<div class="sheet people">
+<p class="people-title">Alcuni progetti di cui andiamo fieri</p>
+<div class="person"><img src="giacomo.jpg" alt="Giacomo" width="60" height="60"><span>Giacomo</span></div>
+<div class="chips"><span class="chip">Ferrero</span><span class="chip">Unipol</span><span class="chip">phex.care</span></div>
+<div class="hr"></div>
+<div class="person"><img src="davide.jpg" alt="Davide" width="60" height="60"><span>Davide</span></div>
+<div class="chips"><span class="chip">YOOX</span><span class="chip">lastminute.com</span><span class="chip">PagoPA</span></div>
+</div>
+</div>
+
+<div class="sep"></div>
+
+<div class="story">
+<h3>Ma la passione per le carte ci accompagna <span>da molto prima.</span></h3>
+<div class="story-body">
+<p>Quando abbiamo ritrovato lo scatolone con le carte di quando eravamo bambini e abbiamo iniziato a venderle, ci siamo scontrati con gli stessi problemi di chi lo fa ogni giorno: riconoscerle, riordinarle, valutarle, fotografarle, metterle in vendita e spedirle.</p>
+<p>Così abbiamo messo il nostro mestiere al servizio della nostra passione.</p>
+<blockquote>Oggi portiamo la stessa esperienza ai professionisti del mondo TCG, e ogni progetto ci insegna qualcosa che portiamo anche nel tuo.</blockquote>
 <div>
-<div style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 22px">Giacomo</div>
-<div style="font-size: 13px; color: #A9AFBB; margin-top: 2px">Ho lavorato per</div>
-</div>
-</div>
-<div style="display: flex; flex-wrap: wrap; gap: 8px">
-<span style="border: 1px solid #3A404D; border-radius: 999px; padding: 6px 14px; font-size: 15px; font-weight: 500">Unipol</span>
-<span style="border: 1px solid #3A404D; border-radius: 999px; padding: 6px 14px; font-size: 15px; font-weight: 500">Ferrero</span>
-</div>
-</div>
-<div style="border: 1px solid #2A2F3A; border-radius: 14px; padding: 22px 24px; background: #151820">
-<div style="display: flex; align-items: center; gap: 16px; margin-bottom: 14px">
-<img src="davide.jpg" alt="Davide" style="width: 64px; height: 64px; border-radius: 50%; object-fit: cover; border: 2px solid #F5C542; background: #FFFFFF; flex: none">
-<div>
-<div style="font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 22px">Davide</div>
-<div style="font-size: 13px; color: #A9AFBB; margin-top: 2px">Ho lavorato per</div>
-</div>
-</div>
-<div style="display: flex; flex-wrap: wrap; gap: 8px">
-<span style="border: 1px solid #3A404D; border-radius: 999px; padding: 6px 14px; font-size: 15px; font-weight: 500">Generali</span>
-<span style="border: 1px solid #3A404D; border-radius: 999px; padding: 6px 14px; font-size: 15px; font-weight: 500">PagoPA</span>
-<span style="border: 1px solid #3A404D; border-radius: 999px; padding: 6px 14px; font-size: 15px; font-weight: 500">lastminute.com</span>
-<span style="border: 1px solid #3A404D; border-radius: 999px; padding: 6px 14px; font-size: 15px; font-weight: 500">YOOX</span>
+<a class="btn btn-lg btn-ghost" href="https://wa.me/393336397137?text=Ciao%21%20Ho%20preso%20il%20vostro%20biglietto%20a%20Gamics%20Cesena%20e%20vorrei%20prenotare%20i%2020%20minuti%20gratuiti.%20Quello%20che%20mi%20fa%20perdere%20pi%C3%B9%20tempo%20o%20soldi%20%C3%A8%3A%20" target="_blank" rel="noopener">
+<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.4 8.4 0 1 1 21 11.5z"></path></svg>
+Scrivi a Giacomo e Davide</a>
 </div>
 </div>
 </div>
+
 </div>
 </section>
 
 <!-- FAQ -->
-<section id="faq" style="border-top: 1px solid #232731">
-<div style="max-width: 820px; margin: 0 auto; padding: 80px 24px">
-<h2 style="margin: 0 0 32px; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: clamp(28px, 3.5vw, 40px); line-height: 1.1">Domande frequenti</h2>
-<div style="display: flex; flex-direction: column; gap: 12px">
-<details style="border: 1px solid #2A2F3A; border-radius: 12px; padding: 18px 22px; background: #151820">
-<summary style="cursor: pointer; font-weight: 600; font-size: 18px">Quanto costa?</summary>
-<p style="margin: 12px 0 0; color: #C3C8D2">Dipende da cosa emerge dall'analisi. Dopo la prima call ricevi un preventivo chiaro, diviso per aree d'intervento, così scegli da cosa partire.</p>
+<section id="faq" class="rule">
+<div class="faq">
+<h2 class="h2">Domande frequenti</h2>
+<div class="faq-list">
+<details>
+<summary>Quanto costa?</summary>
+<p>Per iniziare, niente: la prima analisi parte da una chiacchierata di 20 minuti, al telefono o in videochiamata, gratuita fino al 31/12. Se c'è margine per migliorare, approfondiamo e ti prepariamo una proposta chiara, con fasi, tempi e costi per ciascuna: scegli tu da dove partire.</p>
 </details>
-<details style="border: 1px solid #2A2F3A; border-radius: 12px; padding: 18px 22px; background: #151820">
-<summary style="cursor: pointer; font-weight: 600; font-size: 18px">Devo ricominciare da zero con il mio magazzino?</summary>
-<p style="margin: 12px 0 0; color: #C3C8D2">No. Partiamo dai dati che hai già, anche da file Excel, e valutiamo insieme come portarli nella nuova soluzione.</p>
+<details>
+<summary>Ho già un gestionale: devo ricominciare da zero?</summary>
+<p>No. Partiamo da quello che hai già: il software che usi, i tuoi file, i tuoi dati. Spesso conviene collegare e completare ciò che funziona, invece di sostituirlo.</p>
 </details>
-<details style="border: 1px solid #2A2F3A; border-radius: 12px; padding: 18px 22px; background: #151820">
-<summary style="cursor: pointer; font-weight: 600; font-size: 18px">Funziona con i marketplace che uso?</summary>
-<p style="margin: 12px 0 0; color: #C3C8D2">Valutiamo l'integrazione con i marketplace che offrono un accesso tecnico, come CardTrader, eBay e Vinted. Per gli altri cerchiamo insieme la soluzione più adatta.</p>
+<details>
+<summary>Funziona con i marketplace che uso?</summary>
+<p>Conosciamo e lavoriamo sui principali marketplace, come Cardmarket, CardTrader, eBay e Vinted, e con il tuo e-commerce. Per ognuno valutiamo insieme il modo migliore di collegarlo alla tua attività.</p>
 </details>
-<details style="border: 1px solid #2A2F3A; border-radius: 12px; padding: 18px 22px; background: #151820">
-<summary style="cursor: pointer; font-weight: 600; font-size: 18px">E se in futuro mi serve una nuova funzionalità?</summary>
-<p style="margin: 12px 0 0; color: #C3C8D2">La soluzione cresce con la tua attività. Ne parliamo insieme, valutiamo come realizzarla e ti proponiamo un preventivo dedicato.</p>
+<details>
+<summary>Quanto tempo ci vuole?</summary>
+<p>Il primo passo è veloce: ci sentiamo e ti mandiamo la proposta in pochi giorni. I tempi di sviluppo dipendono da cosa scegli di fare e li trovi, fase per fase, nella proposta.</p>
 </details>
+</div>
+<div class="faq-more">
+<p>Hai un'altra domanda?</p>
+<a class="btn btn-lg btn-ghost" href="https://wa.me/393336397137?text=Ciao%21%20Ho%20letto%20la%20vostra%20pagina%20e%20ho%20una%20domanda%3A%20" target="_blank" rel="noopener">
+<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.4 8.4 0 1 1 21 11.5z"></path></svg>
+Scrivici su WhatsApp</a>
 </div>
 </div>
 </section>
 
-<!-- CONTATTI -->
-<section id="contatti" style="background: #151820; border-top: 1px solid #232731">
-<div style="max-width: 1100px; margin: 0 auto; padding: 88px 24px">
-<div style="max-width: 560px; display: flex; flex-direction: column; gap: 20px">
-<h2 style="margin: 0; font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: clamp(30px, 4vw, 44px); line-height: 1.1">Raccontaci come lavori oggi.</h2>
-<p style="margin: 0; color: #C3C8D2">Insieme capiremo se e dove una soluzione digitale può aiutarti.</p>
-<a href="https://calendar.app.google/YJnjoNa6VZvuCASM8" target="_blank" rel="noopener" style="text-decoration: none; display: flex; align-items: center; gap: 14px; padding: 18px 20px; border: 1.5px solid #F5C542; border-radius: 12px; background: #0F1115">
-<svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F5C542" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18"></path><path d="M8 3v4"></path><path d="M16 3v4"></path></svg>
-<span style="display: flex; flex-direction: column"><span style="font-size: 13px; color: #A9AFBB">Videochiamata di 20 minuti</span><span style="font-weight: 600">Prenota una call di analisi</span></span>
-</a>
-<a href="https://wa.me/393336397137" target="_blank" rel="noopener" style="text-decoration: none; display: flex; align-items: center; gap: 14px; padding: 18px 20px; border: 1px solid #2A2F3A; border-radius: 12px; background: #0F1115">
-<svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F5C542" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.4 8.4 0 1 1 21 11.5z"></path></svg>
-<span style="display: flex; flex-direction: column"><span style="font-size: 13px; color: #A9AFBB">WhatsApp o telefono</span><span style="font-weight: 600">+39 333 639 7137</span></span>
-</a>
-<a href="mailto:ggdb.enterprise@gmail.com" style="text-decoration: none; display: flex; align-items: center; gap: 14px; padding: 18px 20px; border: 1px solid #2A2F3A; border-radius: 12px; background: #0F1115">
-<svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F5C542" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 7l9 6 9-6"></path></svg>
-<span style="display: flex; flex-direction: column"><span style="font-size: 13px; color: #A9AFBB">Email</span><span style="font-weight: 600; overflow-wrap: anywhere">ggdb.enterprise@gmail.com</span></span>
-</a>
+<!-- CONTATTI / FORM -->
+<section id="contatti" class="band">
+<div class="wrap contact">
+<div class="contact-txt">
+<p class="eyebrow">Gratuita fino al 31/12</p>
+<h2>Prenota la tua prima analisi gratuita.</h2>
+<p>Raccontaci in due righe cosa ti fa perdere più tempo o soldi. Diamo la precedenza a chi abbiamo conosciuto a Gamics Cesena: ti ricontattiamo in fretta per fissare 20 minuti, al telefono o in videochiamata.</p>
+<p class="alt">Preferisci scriverci direttamente?</p>
+<div class="btn-row">
+<a class="btn btn-lg btn-ghost" href="https://wa.me/393336397137?text=Ciao%21%20Ho%20preso%20il%20vostro%20biglietto%20a%20Gamics%20Cesena%20e%20vorrei%20prenotare%20i%2020%20minuti%20gratuiti.%20Quello%20che%20mi%20fa%20perdere%20pi%C3%B9%20tempo%20o%20soldi%20%C3%A8%3A%20" target="_blank" rel="noopener">
+<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.4 8.4 0 1 1 21 11.5z"></path></svg>
+Scrivici su WhatsApp</a></div>
 </div>
+
+<form class="sheet" action="https://api.web3forms.com/submit" method="POST">
+<input type="hidden" name="access_key" value="c37c6102-7838-48f9-a68e-770cd5c8535b">
+<input type="hidden" name="subject" value="Nuova richiesta di prima analisi gratuita – Landing GGDB (Cesena)">
+<input type="hidden" name="from_name" value="Landing GGDB Cesena">
+<input type="hidden" name="redirect" value="https://borficchiadavide.github.io/landingGGDB/grazie.html">
+<input type="checkbox" name="botcheck" style="display: none" tabindex="-1" autocomplete="off" aria-hidden="true">
+<div class="field">
+<label for="f-nome">Nome e cognome <span class="req" aria-hidden="true">*</span></label>
+<input id="f-nome" name="Nome e cognome" type="text" required autocomplete="name">
+</div>
+<div class="field">
+<label for="f-negozio">Nome del negozio o dell'attività <span class="req" aria-hidden="true">*</span></label>
+<input id="f-negozio" name="Negozio o attività" type="text" required autocomplete="organization" placeholder="Negozio o profilo Cardmarket">
+</div>
+<fieldset>
+<legend>Come ti ricontattiamo? <span class="req" aria-hidden="true">*</span> <span class="opt">Basta uno dei due.</span></legend>
+<div class="two">
+<div class="field">
+<label for="f-email">Email</label>
+<input id="f-email" name="email" type="email" autocomplete="email">
+</div>
+<div class="field">
+<label for="f-cell">Cellulare</label>
+<input id="f-cell" name="Cellulare" type="tel" autocomplete="tel">
+</div>
+</div>
+</fieldset>
+<div class="field">
+<label for="f-ordini">Quanti ordini gestisci in media a settimana? <span class="req" aria-hidden="true">*</span></label>
+<div class="select">
+<select id="f-ordini" name="Ordini a settimana" required>
+<option value="" disabled selected>Scegli un'opzione</option>
+<option>0–100</option>
+<option>101–250</option>
+<option>251–500</option>
+<option>501+</option>
+</select>
+<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>
+</div>
+</div>
+<div class="field">
+<label for="f-altro">Vuoi aggiungere qualcosa? <span class="opt">(facoltativo)</span></label>
+<textarea id="f-altro" name="Altro" rows="3">Quello che mi fa perdere più tempo o soldi è </textarea>
+</div>
+<p class="note"><span class="req">*</span> Campi obbligatori</p>
+<div class="consent">
+<input id="f-privacy" name="Presa visione informativa privacy" value="Sì" type="checkbox" required>
+<label for="f-privacy">Ho letto l'<a href="privacy.html" target="_blank">informativa privacy</a> e chiedo di essere ricontattato per questa richiesta.</label>
+</div>
+<button type="submit">Prenota 20 minuti gratis</button>
+</form>
 </div>
 </section>
+</main>
 
 <!-- FOOTER -->
-<footer style="border-top: 1px solid #232731">
-<div style="max-width: 1100px; margin: 0 auto; padding: 32px 24px; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; font-size: 14px; color: #A9AFBB">
-<span style="display: inline-flex; align-items: center; gap: 10px"><svg role="img" aria-label="GGDB" width="76" height="19" viewBox="0 -2 404 104"><g fill="none" stroke="#F2F0EA" stroke-width="22" stroke-linejoin="round"><path d="M86 11 H30 A19 19 0 0 0 11 30 V70 A19 19 0 0 0 30 89 H60 A19 19 0 0 0 79 70 V52 H50"></path><path d="M186 11 H130 A19 19 0 0 0 111 30 V70 A19 19 0 0 0 130 89 H160 A19 19 0 0 0 179 70 V52 H150"></path><path stroke-linejoin="miter" d="M211 11 V89 H260 A19 19 0 0 0 279 70 V30 A19 19 0 0 0 260 11 Z"></path></g><path fill="#F2F0EA" d="M300 0 H365.5 A30.5 30.5 0 0 1 389 50 A30.5 30.5 0 0 1 365.5 100 H300 V44 L322 72 V78 H365.5 A8.5 8.5 0 0 0 365.5 61 H328 V39 H365.5 A8.5 8.5 0 0 0 365.5 22 H317 Z"></path><path fill="#F5C542" d="M300 7 L322 35 V64 L300 36 Z"></path></svg>· Soluzioni digitali su misura per il mondo TCG</span>
+<footer>
+<div class="foot">
+<span class="tag"><svg class="logo" role="img" aria-label="GGDB" width="76" height="19" viewBox="0 -2 404 104"><g class="g"><path d="M86 11 H30 A19 19 0 0 0 11 30 V70 A19 19 0 0 0 30 89 H60 A19 19 0 0 0 79 70 V52 H50"></path><path d="M186 11 H130 A19 19 0 0 0 111 30 V70 A19 19 0 0 0 130 89 H160 A19 19 0 0 0 179 70 V52 H150"></path><path stroke-linejoin="miter" d="M211 11 V89 H260 A19 19 0 0 0 279 70 V30 A19 19 0 0 0 260 11 Z"></path></g><path class="d" d="M300 0 H365.5 A30.5 30.5 0 0 1 389 50 A30.5 30.5 0 0 1 365.5 100 H300 V44 L322 72 V78 H365.5 A8.5 8.5 0 0 0 365.5 61 H328 V39 H365.5 A8.5 8.5 0 0 0 365.5 22 H317 Z"></path><path class="m" d="M300 7 L322 35 V64 L300 36 Z"></path></svg>Soluzioni digitali</span>
+<a href="privacy.html">Privacy</a>
 </div>
 </footer>
 
-</div>
+<script>
+(function () {
+  // Analytics calls must never break the page: if Umami is blocked or not loaded yet, they do nothing.
+  function track(name, data) {
+    try { if (window.umami && window.umami.track) return Promise.resolve(window.umami.track(name, data)); } catch (e) {}
+    return Promise.resolve();
+  }
+  var SEZIONI = {top: 'hero', vantaggi: 'vantaggi', metodo: 'metodo', 'chi-siamo': 'chi siamo', faq: 'faq', contatti: 'contatti'};
+  function posizione(el) {
+    if (el.closest('header')) return 'header';
+    var s = el.closest('section[id]');
+    return s ? (SEZIONI[s.id] || s.id) : 'footer';
+  }
+  // Button clicks, labelled by where on the page they were tapped.
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a');
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    if (a.classList.contains('hero-pill')) track('Clic pillola promo');
+    else if (href.indexOf('wa.me') > -1) track('Clic WhatsApp', {posizione: posizione(a)});
+    else if (href === '#contatti') track('Clic Prenota 20 minuti', {posizione: posizione(a)});
+    else if (href.indexOf('privacy') > -1) track('Clic privacy', {posizione: posizione(a)});
+  });
+  // Which FAQ get opened.
+  document.querySelectorAll('#faq details').forEach(function (d) {
+    d.addEventListener('toggle', function () {
+      if (d.open) track('FAQ aperta', {domanda: d.querySelector('summary').textContent.trim()});
+    });
+  });
+  // How far people scroll: each section counted once per visit.
+  // A low threshold, because on phones some sections are taller than the screen.
+  if ('IntersectionObserver' in window) {
+    var visto = {};
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting || visto[en.target.id]) return;
+        visto[en.target.id] = true;
+        track('Sezione vista', {sezione: SEZIONI[en.target.id] || en.target.id});
+        io.unobserve(en.target);
+      });
+    }, {threshold: 0.1});
+    document.querySelectorAll('section[id]').forEach(function (s) { if (s.id !== 'top') io.observe(s); });
+  }
+  var form = document.querySelector('form[action*="web3forms"]');
+  if (!form) return;
+  var email = document.getElementById('f-email');
+  var cell = document.getElementById('f-cell');
+  var altro = document.getElementById('f-altro');
+  var PREFILL = altro ? altro.defaultValue : '';
+  var CAMPI = {'f-nome': 'nome', 'f-negozio': 'negozio', 'f-email': 'email', 'f-cell': 'cellulare', 'f-ordini': 'ordini', 'f-altro': 'campo libero', 'f-privacy': 'privacy'};
+  var iniziato = false, inviato = false, inviando = false, ultimoCampo = '', compilati = {}, erroreSegnalato = false;
+  // Form started = first field touched; the last field touched tells where people stop.
+  form.addEventListener('focusin', function (e) {
+    var nome = CAMPI[e.target.id];
+    if (!nome) return;
+    ultimoCampo = nome;
+    if (!iniziato) { iniziato = true; track('Form iniziato'); }
+  });
+  form.addEventListener('change', function (e) {
+    var nome = CAMPI[e.target.id];
+    if (!nome || compilati[nome]) return;
+    var pieno = e.target.type === 'checkbox' ? e.target.checked : String(e.target.value).trim() !== '';
+    if (pieno) { compilati[nome] = true; track('Form campo compilato', {campo: nome}); }
+  });
+  // Native "required" failures: report the first missing field once per attempt.
+  form.addEventListener('invalid', function (e) {
+    if (erroreSegnalato) return;
+    erroreSegnalato = true;
+    track('Form errore', {campo: CAMPI[e.target.id] || e.target.name});
+    // All "invalid" events of one attempt fire in the same tick: reset right after it.
+    setTimeout(function () { erroreSegnalato = false; }, 0);
+  }, true);
+  function clear() { email.setCustomValidity(''); }
+  email.addEventListener('input', clear);
+  cell.addEventListener('input', clear);
+  if (altro) {
+    // The free-text field starts with an unfinished sentence: put the caret at its end.
+    altro.addEventListener('focus', function () {
+      var el = this;
+      setTimeout(function () { var n = el.value.length; el.setSelectionRange(n, n); }, 0);
+    });
+  }
+  form.addEventListener('submit', function (e) {
+    // "Email OR mobile" can't be expressed with HTML required, so it is checked here.
+    if (!email.value.trim() && !cell.value.trim()) {
+      e.preventDefault();
+      track('Form errore', {campo: 'email o cellulare'});
+      email.setCustomValidity('Inserisci almeno un contatto: email o cellulare.');
+      email.reportValidity();
+      return;
+    }
+    // An untouched (or emptied) free-text field must not reach the email as a half sentence.
+    if (altro && (!altro.value.trim() || altro.value.trimEnd() === PREFILL.trimEnd())) {
+      altro.value = '';
+    }
+    // Sent in the background, so a provider outage never shows the visitor an error page:
+    // success opens grazie.html, failure offers the same data on WhatsApp.
+    e.preventDefault();
+    if (inviando) return;
+    var bot = form.querySelector('[name="botcheck"]');
+    if (bot && bot.checked) return;
+    inviando = true;
+    inviato = true;
+    var bottone = form.querySelector('button[type="submit"]');
+    var testo = bottone.textContent;
+    bottone.disabled = true;
+    bottone.textContent = 'Invio in corso…';
+    var ordini = document.getElementById('f-ordini');
+    var ctrl = window.AbortController ? new AbortController() : null;
+    var stop = setTimeout(function () { if (ctrl) ctrl.abort(); }, 12000);
+    fetch(form.action, {method: 'POST', body: new FormData(form), headers: {Accept: 'application/json'}, signal: ctrl ? ctrl.signal : undefined})
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return r.ok && j.success !== false; }); })
+      .catch(function () { return false; })
+      .then(function (ok) {
+        clearTimeout(stop);
+        if (ok) {
+          var attesa = new Promise(function (r) { setTimeout(r, 800); });
+          Promise.race([track('Form inviato', {ordini: ordini ? ordini.value : ''}), attesa])
+            .then(function () { location.href = 'grazie.html'; });
+        } else {
+          track('Form fallito');
+          inviando = false;
+          bottone.disabled = false;
+          bottone.textContent = testo;
+          mostraAlternativa();
+          // The untouched free-text field was emptied for sending: give the sentence back.
+          if (altro && !altro.value) altro.value = PREFILL;
+        }
+      });
+  });
+  // Fallback when the form service is unreachable: nothing typed is lost, it moves to WhatsApp.
+  function mostraAlternativa() {
+    var vecchio = document.getElementById('form-fallito');
+    if (vecchio) vecchio.remove();
+    function v(id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; }
+    var righe = ['Ciao! Ho provato a compilare il modulo sulla vostra pagina ma non è partito. Ecco i miei dati:',
+      'Nome: ' + v('f-nome'), 'Negozio: ' + v('f-negozio')];
+    if (v('f-email')) righe.push('Email: ' + v('f-email'));
+    if (v('f-cell')) righe.push('Cellulare: ' + v('f-cell'));
+    righe.push('Ordini a settimana: ' + v('f-ordini'));
+    if (v('f-altro')) righe.push(v('f-altro'));
+    var link = 'https://wa.me/393336397137?text=' + encodeURIComponent(righe.join('\n'));
+    var box = document.createElement('div');
+    box.id = 'form-fallito';
+    box.setAttribute('role', 'alert');
+    var p = document.createElement('p');
+    p.textContent = 'Non siamo riusciti a inviare il modulo, ma i tuoi dati non sono persi: mandaceli su WhatsApp con un tocco, il messaggio è già pronto.';
+    var a = document.createElement('a');
+    a.href = link; a.target = '_blank'; a.rel = 'noopener';
+    a.textContent = 'Invia i dati su WhatsApp';
+    box.appendChild(p); box.appendChild(a);
+    form.appendChild(box);
+    box.scrollIntoView({behavior: 'smooth', block: 'center'});
+  }
+  // Leaving after starting the form without sending it = an abandoned form (best effort).
+  window.addEventListener('pagehide', function () {
+    if (iniziato && !inviato) track('Form abbandonato', {ultimo_campo: ultimoCampo});
+  });
+})();
+</script>
 </body>
 </html>
