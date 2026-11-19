@@ -22,7 +22,7 @@ try {
   if (q === '0') localStorage.removeItem('umami.disabled');
 } catch (e) {}
 </script>
-<script defer src="https://cloud.umami.is/script.js" data-website-id="bbd655cf-6ce8-4dc6-accc-16206d7ab82c" data-domains="ggdb-tcg.github.io"></script>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="bbd655cf-6ce8-4dc6-accc-16206d7ab82c" data-domains="borficchiadavide.github.io,ggdb-tcg.github.io"></script>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -49,9 +49,27 @@ try {
 
 <main>
 <!-- HERO -->
-<section id="top" class="wrap hero">
+<section id="top" class="hero">
+<!--
+  Apertura: il promo ecosistema in loop, senza titolo né chiusura (già ripresi altrove nella pagina).
+  Non è un componente del circuito: si fonde con la pagina (stesso carbone del fondo, bordi sfumati).
+  Orizzontale su desktop, verticale su telefono (lo sceglie lo script). Con "riduci movimento" resta fermo.
+-->
+<figure class="reel hero-media">
+<div class="hero-video"><video class="reel-video" src="media/hero.mp4" poster="media/hero.jpg" data-src-v="media/hero_v.mp4" data-poster-v="media/hero_v.jpg" width="1600" height="900" muted loop playsinline preload="none" controls aria-label="Video GGDB"></video></div>
+<div class="reel-ctrl" hidden>
+<button type="button" class="reel-btn" data-act="play" aria-label="Metti in pausa">
+<svg class="i-pause" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5v14"></path><path d="M15 5v14"></path></svg>
+<svg class="i-play" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4.5v15l12-7.5z"></path></svg>
+</button>
+</div>
+</figure>
+<div class="wrap hero-copy">
 <div class="hero-top">
+<div class="where">
+<span class="faces" aria-hidden="true"><img src="giacomo.jpg" alt="" width="40" height="40"><img src="davide.jpg" alt="" width="40" height="40"></span>
 <p class="eyebrow">Gamics Cesena</p>
+</div>
 <a class="pill" href="#contatti">
 <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v9H4v-9"></path><path d="M2 7h20v5H2z"></path><path d="M12 21V7"></path><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>
 Prima analisi gratuita fino al 31/12 →
@@ -67,6 +85,7 @@ Prima analisi gratuita fino al 31/12 →
 <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.4 8.4 0 1 1 21 11.5z"></path></svg>
 Scrivici su WhatsApp</a>
 </div>
+</div>
 </section>
 
 <!-- VANTAGGI -->
@@ -75,37 +94,53 @@ Scrivici su WhatsApp</a>
 <p class="eyebrow">Cosa cambia per te</p>
 <h2 class="h2">Meno tempo a rincorrere il lavoro, più tempo per far crescere la tua attività.</h2>
 <p class="lead">Non esiste una soluzione uguale per tutti: partiamo dalla tua giornata di lavoro e interveniamo dove il beneficio è più grande.</p>
-<div class="cards">
+<!--
+  Scheda madre: i vantaggi sono chip collegati nell'ordine in cui una carta attraversa il negozio:
+  acquisto -> posto in magazzino (il processore) -> prezzo -> ordine -> numeri.
+  Ogni chip ha la forma della sua schermata reale (gestionale da desktop, quindi orizzontale);
+  accanto al chip il titolo (in nero su fascia lime) e sotto la descrizione. Piste e fuoco: circuit.js.
+-->
+<div class="mb">
 
-<div class="card">
-<svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg>
-<h3>Trovi ogni carta al primo colpo</h3>
-<p>Niente più ricerche tra box e raccoglitori: sai sempre cosa hai e dove si trova, in negozio o in magazzino.</p>
+<article class="comp comp-a" data-shape="wide">
+<div class="pkg"><div class="pkg-media"><video src="media/acquisti.mp4" poster="media/acquisti.jpg" width="960" height="540" muted loop playsinline preload="none" aria-hidden="true"></video></div></div>
+<div class="comp-text">
+<h3 class="comp-title"><span>Acquisti valutati in un attimo</span></h3>
+<p class="comp-note">Buylist sempre aggiornata e valutazione rapida delle collezioni: offerte in linea con il mercato, senza rischiare di pagare troppo.</p>
 </div>
+</article>
 
-<div class="card">
-<svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"></path><path d="M15 7h6v6"></path></svg>
-<h3>Prezzi in linea con il mercato</h3>
-<p>Smetti di inseguire le quotazioni a mano e non rischi di svendere le carte di valore.</p>
+<article class="comp comp-b" data-shape="cpu">
+<div class="pkg"><div class="pkg-media"><video src="media/trovi.mp4" poster="media/trovi.jpg" width="960" height="540" muted loop playsinline preload="none" aria-hidden="true"></video></div></div>
+<div class="comp-text">
+<h3 class="comp-title"><span>Trovi ogni carta al primo colpo</span></h3>
+<p class="comp-note">Niente più ricerche tra box e raccoglitori: sai sempre cosa hai e dove si trova, in negozio o in magazzino.</p>
 </div>
+</article>
 
-<div class="card">
-<svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5 9 5 9-5z"></path><path d="M3 8v8l9 5 9-5V8"></path><path d="M12 13v8"></path></svg>
-<h3>Ordini evasi senza affanni</h3>
-<p>Gestisci le vendite di tutti i canali da un unico posto, senza vendere due volte la stessa carta.</p>
+<article class="comp comp-c" data-shape="wide">
+<div class="pkg"><div class="pkg-media"><video src="media/prezzi.mp4" poster="media/prezzi.jpg" width="960" height="540" muted loop playsinline preload="none" aria-hidden="true"></video></div></div>
+<div class="comp-text">
+<h3 class="comp-title"><span>Prezzi in linea con il mercato</span></h3>
+<p class="comp-note">Smetti di inseguire le quotazioni a mano e non rischi di svendere le carte di valore.</p>
 </div>
+</article>
 
-<div class="card">
-<svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"></path><path d="M10 20V4"></path><path d="M16 20v-7"></path><path d="M22 20H2"></path></svg>
-<h3>Decisioni basate sui numeri</h3>
-<p>Dashboard chiare per vedere cosa vende, cosa resta fermo e dove guadagni davvero.</p>
+<article class="comp comp-d" data-shape="ram">
+<div class="pkg"><div class="pkg-media"><video src="media/ordini.mp4" poster="media/ordini.jpg" width="960" height="540" muted loop playsinline preload="none" aria-hidden="true"></video></div></div>
+<div class="comp-text">
+<h3 class="comp-title"><span>Ordini evasi senza affanni</span></h3>
+<p class="comp-note">Gestisci le vendite di tutti i canali da un unico posto, senza vendere due volte la stessa carta.</p>
 </div>
+</article>
 
-<div class="card">
-<svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"></rect><path d="M9 8h6"></path><path d="M9 12h6"></path><path d="M9 16h3"></path></svg>
-<h3>Acquisti valutati in un attimo</h3>
-<p>Buylist sempre aggiornata e valutazione rapida delle collezioni: offerte in linea con il mercato, senza rischiare di pagare troppo.</p>
+<article class="comp comp-e" data-shape="small">
+<div class="pkg"><div class="pkg-media"><video src="media/numeri.mp4" poster="media/numeri.jpg" width="960" height="540" muted loop playsinline preload="none" aria-hidden="true"></video></div></div>
+<div class="comp-text">
+<h3 class="comp-title"><span>Decisioni basate sui numeri</span></h3>
+<p class="comp-note">Dashboard chiare per vedere cosa vende, cosa resta fermo e dove guadagni davvero.</p>
 </div>
+</article>
 
 </div>
 
@@ -209,10 +244,10 @@ Scrivici su WhatsApp</a>
 
 <div class="sheet people">
 <p class="people-title">Alcuni progetti di cui andiamo fieri</p>
-<div class="person"><img src="giacomo.jpg" alt="Giacomo" width="60" height="60"><span>Giacomo</span></div>
+<div class="person"><img src="giacomo.jpg" alt="Giacomo" width="76" height="76"><span>Giacomo</span></div>
 <div class="chips"><span class="chip">Ferrero</span><span class="chip">Unipol</span><span class="chip">phex.care</span></div>
 <div class="hr"></div>
-<div class="person"><img src="davide.jpg" alt="Davide" width="60" height="60"><span>Davide</span></div>
+<div class="person"><img src="davide.jpg" alt="Davide" width="76" height="76"><span>Davide</span></div>
 <div class="chips"><span class="chip">YOOX</span><span class="chip">lastminute.com</span><span class="chip">PagoPA</span></div>
 </div>
 </div>
@@ -304,7 +339,7 @@ Scrivici su WhatsApp</a></div>
 </div>
 <div class="field">
 <label for="f-cell">Cellulare</label>
-<input id="f-cell" name="Cellulare" type="tel" autocomplete="tel">
+<input id="f-cell" name="Cellulare" type="tel" inputmode="tel" autocomplete="tel">
 </div>
 </div>
 </fieldset>
@@ -340,9 +375,17 @@ Scrivici su WhatsApp</a></div>
 <footer>
 <div class="foot">
 <span class="tag"><svg class="logo" role="img" aria-label="GGDB" width="76" height="19" viewBox="0 -2 404 104"><g class="g"><path d="M86 11 H30 A19 19 0 0 0 11 30 V70 A19 19 0 0 0 30 89 H60 A19 19 0 0 0 79 70 V52 H50"></path><path d="M186 11 H130 A19 19 0 0 0 111 30 V70 A19 19 0 0 0 130 89 H160 A19 19 0 0 0 179 70 V52 H150"></path><path stroke-linejoin="miter" d="M211 11 V89 H260 A19 19 0 0 0 279 70 V30 A19 19 0 0 0 260 11 Z"></path></g><path class="d" d="M300 0 H365.5 A30.5 30.5 0 0 1 389 50 A30.5 30.5 0 0 1 365.5 100 H300 V44 L322 72 V78 H365.5 A8.5 8.5 0 0 0 365.5 61 H328 V39 H365.5 A8.5 8.5 0 0 0 365.5 22 H317 Z"></path><path class="m" d="M300 7 L322 35 V64 L300 36 Z"></path></svg>Soluzioni digitali</span>
+<span class="demo-note">Schermate dimostrative, dati di fantasia.</span>
 <a href="privacy.html">Privacy</a>
 </div>
 </footer>
+
+<!-- Barra in basso, solo su telefono: compare quando i pulsanti dell'hero escono dallo schermo e sparisce sul modulo. -->
+<div class="dock" inert>
+<a class="btn" href="#contatti">Prenota 20 minuti gratis</a>
+<a class="btn btn-ghost dock-wa" href="https://wa.me/393336397137?text=Ciao%21%20Ho%20preso%20il%20vostro%20biglietto%20a%20Gamics%20Cesena%20e%20vorrei%20prenotare%20i%2020%20minuti%20gratuiti.%20Quello%20che%20mi%20fa%20perdere%20pi%C3%B9%20tempo%20o%20soldi%20%C3%A8%3A%20" target="_blank" rel="noopener" aria-label="Scrivici su WhatsApp">
+<svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.4 8.4 0 1 1 21 11.5z"></path></svg></a>
+</div>
 
 <script>
 (function () {
@@ -354,6 +397,7 @@ Scrivici su WhatsApp</a></div>
   var SEZIONI = {top: 'hero', vantaggi: 'vantaggi', metodo: 'metodo', 'chi-siamo': 'chi siamo', faq: 'faq', contatti: 'contatti'};
   function posizione(el) {
     if (el.closest('header')) return 'header';
+    if (el.closest('.dock')) return 'barra in basso';
     var s = el.closest('section[id]');
     return s ? (SEZIONI[s.id] || s.id) : 'footer';
   }
@@ -362,7 +406,7 @@ Scrivici su WhatsApp</a></div>
     var a = e.target.closest('a');
     if (!a) return;
     var href = a.getAttribute('href') || '';
-    if (a.classList.contains('hero-pill')) track('Clic pillola promo');
+    if (a.classList.contains('pill')) track('Clic pillola promo');
     else if (href.indexOf('wa.me') > -1) track('Clic WhatsApp', {posizione: posizione(a)});
     else if (href === '#contatti') track('Clic Prenota 20 minuti', {posizione: posizione(a)});
     else if (href.indexOf('privacy') > -1) track('Clic privacy', {posizione: posizione(a)});
@@ -387,6 +431,101 @@ Scrivici su WhatsApp</a></div>
     }, {threshold: 0.1});
     document.querySelectorAll('section[id]').forEach(function (s) { if (s.id !== 'top') io.observe(s); });
   }
+
+  var fermo = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  function avvia(v) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+
+  // Apertura: il promo in loop, muto. Su telefono la versione verticale.
+  // Parte solo se è in vista e se il visitatore non ha chiesto meno movimento.
+  var reel = document.querySelector('.reel');
+  if (reel) {
+    var rv = reel.querySelector('video');
+    var ctrl = reel.querySelector('.reel-ctrl');
+    var bSuono = ctrl.querySelector('[data-act="sound"]');
+    var bPlay = ctrl.querySelector('[data-act="play"]');
+    var vuoleVederlo = !fermo;
+    if (rv.getAttribute('data-src-v') && window.matchMedia && window.matchMedia('(max-width: 700px)').matches) {
+      rv.poster = rv.getAttribute('data-poster-v');
+      rv.src = rv.getAttribute('data-src-v');
+      rv.width = 720; rv.height = 1280;
+    }
+    rv.preload = 'auto';
+    rv.removeAttribute('controls');
+    ctrl.hidden = false;
+    var stato = function () {
+      var va = !rv.paused;
+      reel.classList.toggle('is-playing', va);
+      bPlay.setAttribute('aria-label', va ? 'Metti in pausa' : 'Riproduci');
+    };
+    rv.addEventListener('play', stato);
+    rv.addEventListener('pause', stato);
+    var alterna = function () { vuoleVederlo = rv.paused; if (vuoleVederlo) avvia(rv); else rv.pause(); };
+    bPlay.addEventListener('click', alterna);
+    rv.addEventListener('click', alterna);
+    if (bSuono) bSuono.addEventListener('click', function () {
+      rv.muted = !rv.muted;
+      bSuono.setAttribute('aria-pressed', String(!rv.muted));
+      bSuono.setAttribute('aria-label', rv.muted ? "Attiva l'audio" : "Disattiva l'audio");
+      reel.classList.toggle('is-sound', !rv.muted);
+      if (!rv.muted) {
+        track('Video promo audio');
+        if (rv.paused) { vuoleVederlo = true; avvia(rv); }
+      }
+    });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) { if (en.isIntersecting) { if (vuoleVederlo) avvia(rv); } else rv.pause(); });
+      }, {threshold: 0.35}).observe(rv);
+    } else if (vuoleVederlo) avvia(rv);
+    stato();
+  }
+
+  // Chip della scheda madre: un tocco ferma o riavvia la clip.
+  // Quale clip va lo decide il fuoco di circuit.js (solo il chip al centro dello schermo);
+  // se il circuito non è attivo, ogni clip parte quando il suo chip è in vista.
+  var scheda = document.querySelector('.mb');
+  if (scheda) {
+    var viste = {};
+    var clip = [].slice.call(scheda.querySelectorAll('video'));
+    clip.forEach(function (v, i) {
+      var comp = v.closest('.comp');
+      if (fermo) v.setAttribute('data-fermo', '1');
+      v.addEventListener('play', function () {
+        if (!viste[i]) { viste[i] = true; track('Clip vista', {clip: comp.querySelector('h3').textContent}); }
+      });
+      comp.querySelector('.pkg-media').addEventListener('click', function () {
+        if (v.paused) { v.removeAttribute('data-fermo'); avvia(v); }
+        else { v.setAttribute('data-fermo', '1'); v.pause(); }
+      });
+    });
+    if ('IntersectionObserver' in window) {
+      var ioClip = new IntersectionObserver(function (entries) {
+        if (document.documentElement.classList.contains('js-circuit')) return;
+        entries.forEach(function (en) {
+          var v = en.target;
+          if (en.isIntersecting) { if (!v.hasAttribute('data-fermo')) avvia(v); }
+          else v.pause();
+        });
+      }, {threshold: 0.6});
+      clip.forEach(function (v) { ioClip.observe(v); });
+    }
+  }
+
+  // Barra in basso (solo telefono, vedi CSS): visibile quando i pulsanti dell'hero sono usciti e il modulo non è in vista.
+  var dock = document.querySelector('.dock');
+  var heroBtn = document.querySelector('.hero .btn-row');
+  var contatti = document.getElementById('contatti');
+  if (dock && heroBtn && contatti && 'IntersectionObserver' in window) {
+    var heroInVista = true, moduloInVista = false;
+    var aggiornaDock = function () {
+      var on = !heroInVista && !moduloInVista;
+      dock.classList.toggle('is-on', on);
+      if (on) dock.removeAttribute('inert'); else dock.setAttribute('inert', '');
+    };
+    new IntersectionObserver(function (en) { heroInVista = en[0].isIntersecting; aggiornaDock(); }).observe(heroBtn);
+    new IntersectionObserver(function (en) { moduloInVista = en[0].isIntersecting; aggiornaDock(); }).observe(contatti);
+  }
+
   var form = document.querySelector('form[action*="web3forms"]');
   if (!form) return;
   var email = document.getElementById('f-email');
@@ -416,9 +555,58 @@ Scrivici su WhatsApp</a></div>
     // All "invalid" events of one attempt fire in the same tick: reset right after it.
     setTimeout(function () { erroreSegnalato = false; }, 0);
   }, true);
-  function clear() { email.setCustomValidity(''); }
-  email.addEventListener('input', clear);
-  cell.addEventListener('input', clear);
+  // Controllo in un solo passaggio, con messaggi in italiano sotto ogni campo (al posto dei fumetti del browser).
+  // Senza JavaScript resta la validazione nativa, perché novalidate lo mette lo script.
+  form.noValidate = true;
+  var ordiniEl = document.getElementById('f-ordini');
+  var privacyEl = document.getElementById('f-privacy');
+  var tentato = false;
+  var msgEl = {};
+  function dove(chiave) {
+    if (chiave === 'contatto') return form.querySelector('.two');
+    if (chiave === 'f-ordini') return ordiniEl.closest('.select');
+    if (chiave === 'f-privacy') return privacyEl.closest('.consent');
+    return document.getElementById(chiave);
+  }
+  function segna(chiave, tutti, marcati, testo) {
+    var p = msgEl[chiave];
+    if (!p) {
+      p = document.createElement('p');
+      p.className = 'err';
+      p.id = 'err-' + chiave;
+      p.setAttribute('aria-live', 'polite');
+      dove(chiave).insertAdjacentElement('afterend', p);
+      msgEl[chiave] = p;
+    }
+    p.textContent = testo;
+    p.hidden = !testo;
+    tutti.forEach(function (c) {
+      if (testo && marcati.indexOf(c) > -1) { c.setAttribute('aria-invalid', 'true'); c.setAttribute('aria-describedby', p.id); }
+      else { c.removeAttribute('aria-invalid'); c.removeAttribute('aria-describedby'); }
+    });
+  }
+  function controlla() {
+    var errori = [];
+    function regola(chiave, tutti, marcati, testo) {
+      segna(chiave, tutti, marcati, testo);
+      if (testo) errori.push({chiave: chiave, campo: marcati[0]});
+    }
+    var nome = document.getElementById('f-nome');
+    var negozio = document.getElementById('f-negozio');
+    regola('f-nome', [nome], [nome], nome.value.trim() ? '' : 'Scrivi nome e cognome.');
+    regola('f-negozio', [negozio], [negozio], negozio.value.trim() ? '' : 'Scrivi il nome del negozio o del profilo Cardmarket.');
+    var ev = email.value.trim(), cv = cell.value.trim();
+    if (!ev && !cv) regola('contatto', [email, cell], [email, cell], 'Inserisci almeno un contatto: email o cellulare.');
+    else if (ev && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(ev)) regola('contatto', [email, cell], [email], "Questa email non sembra completa: controlla la @ e il dominio.");
+    else if (cv && cv.replace(/\D/g, '').length < 9) regola('contatto', [email, cell], [cell], 'Il numero sembra troppo corto: controlla le cifre.');
+    else regola('contatto', [email, cell], [], '');
+    regola('f-ordini', [ordiniEl], [ordiniEl], ordiniEl.value ? '' : 'Scegli quanti ordini gestisci a settimana.');
+    regola('f-privacy', [privacyEl], [privacyEl], privacyEl.checked ? '' : 'Spunta la casella per inviare la richiesta.');
+    return errori;
+  }
+  // Dopo il primo tentativo i messaggi si aggiornano mentre si corregge.
+  form.addEventListener('input', function () { if (tentato) controlla(); });
+  form.addEventListener('change', function () { if (tentato) controlla(); });
   if (altro) {
     // The free-text field starts with an unfinished sentence: put the caret at its end.
     altro.addEventListener('focus', function () {
@@ -427,12 +615,14 @@ Scrivici su WhatsApp</a></div>
     });
   }
   form.addEventListener('submit', function (e) {
-    // "Email OR mobile" can't be expressed with HTML required, so it is checked here.
-    if (!email.value.trim() && !cell.value.trim()) {
+    // Every rule is checked at once; the first wrong field gets the focus.
+    tentato = true;
+    var errori = controlla();
+    if (errori.length) {
       e.preventDefault();
-      track('Form errore', {campo: 'email o cellulare'});
-      email.setCustomValidity('Inserisci almeno un contatto: email o cellulare.');
-      email.reportValidity();
+      var primo = errori[0];
+      track('Form errore', {campo: primo.chiave === 'contatto' ? 'email o cellulare' : (CAMPI[primo.campo.id] || primo.chiave)});
+      primo.campo.focus();
       return;
     }
     // An untouched (or emptied) free-text field must not reach the email as a half sentence.
@@ -504,5 +694,6 @@ Scrivici su WhatsApp</a></div>
   });
 })();
 </script>
+<script src="circuit.js" defer></script>
 </body>
 </html>
