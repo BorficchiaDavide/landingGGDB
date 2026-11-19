@@ -56,7 +56,7 @@ input,textarea,select,button{font:inherit}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 1.5rem}
 .band{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
 .rule{border-top:1px solid var(--border)}
-.pad{padding-top:5rem;padding-bottom:5rem}
+.pad{padding-top:8rem;padding-bottom:8rem}
 
 .eyebrow{margin:0 0 .75rem;font-family:var(--mono);font-size:.875rem;font-weight:500;color:var(--accent);letter-spacing:.06em;text-transform:uppercase}
 .h2{font-weight:700;font-size:clamp(1.75rem,3.5vw,2.5rem);line-height:1.1}
@@ -93,25 +93,29 @@ input,textarea,select,button{font:inherit}
 .nav-cta{display:flex;gap:.625rem;align-items:center}
 .nav .btn{min-height:var(--touch);font-size:.9375rem}
 
-/* Hero: testo a sinistra, promo verticale a destra (sotto i pulsanti su telefono) */
-.hero{padding-top:5rem;padding-bottom:6rem}
-.hero-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:3rem;align-items:center}
-@media (min-width:900px){.hero-grid{grid-template-columns:minmax(0,1fr) 20rem}}
+/*
+ * Hero: il promo in loop in alto, senza cornice. Il suo fondo è lo stesso carbone della pagina e i bordi sfumano,
+ * così il video si fonde con la pagina. Sotto, il claim e il resto dell'apertura.
+ */
+.hero{padding-top:0;padding-bottom:8rem;overflow-x:clip}
+.hero-media{position:relative;margin:0 auto;width:min(100%,calc((100svh - 9rem) * 16 / 9),100rem);aspect-ratio:16/9}
+.hero-video{position:absolute;inset:0;
+  -webkit-mask-image:linear-gradient(to right,transparent 0,#000 9%,#000 91%,transparent 100%),linear-gradient(to bottom,transparent 0,#000 7%,#000 78%,transparent 100%);
+  -webkit-mask-composite:source-in;
+  mask-image:linear-gradient(to right,transparent 0,#000 9%,#000 91%,transparent 100%),linear-gradient(to bottom,transparent 0,#000 7%,#000 78%,transparent 100%);
+  mask-composite:intersect}
+.reel-video{display:block;width:100%;height:100%;object-fit:cover;cursor:pointer;background:var(--bg)}
+.reel-ctrl{position:absolute;right:max(1rem,9%);bottom:24%;display:flex;gap:.5rem}
+.reel-btn{width:var(--touch);height:var(--touch);display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--edge);border-radius:var(--radius);background:rgba(27,28,30,.7);color:var(--text);cursor:pointer;padding:0;opacity:.55;transition:opacity .2s ease}
+.reel-btn svg{stroke:currentColor}
+.reel-btn:hover,.reel-btn:focus-visible{opacity:1;border-color:var(--text)}
+.reel .i-play,.reel:not(.is-playing) .i-pause{display:none}
+.reel:not(.is-playing) .i-play{display:block}
+.hero-copy{position:relative;margin-top:-6rem}
 .where{display:flex;align-items:center;gap:.75rem}
 .faces{display:flex;flex:none}
 .faces img{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid var(--bg);background:var(--raised)}
 .faces img+img{margin-left:-10px}
-
-.reel{position:relative;margin:0;width:100%;max-width:22rem;aspect-ratio:9/16;border:1px solid var(--edge);border-radius:var(--radius);overflow:hidden;background:#000}
-.reel-video{display:block;width:100%;height:100%;object-fit:cover;cursor:pointer}
-.reel-ctrl{position:absolute;right:.625rem;bottom:.625rem;display:flex;gap:.5rem}
-.reel-btn{width:var(--touch);height:var(--touch);display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--edge);border-radius:var(--radius);background:rgba(27,28,30,.86);color:var(--text);cursor:pointer;padding:0}
-.reel-btn svg{stroke:currentColor}
-.reel-btn:hover{border-color:var(--text)}
-/* Icone: altoparlante barrato finché è muto, pausa mentre va, play quando è fermo */
-.reel .i-on,.reel.is-sound .i-off,.reel .i-play,.reel:not(.is-playing) .i-pause{display:none}
-.reel.is-sound .i-on,.reel:not(.is-playing) .i-play{display:block}
-.reel.is-sound [data-act="sound"]{border-color:var(--accent);color:var(--accent)}
 .hero-top{display:flex;flex-wrap:wrap;align-items:center;gap:.75rem 1.25rem;margin-bottom:1.75rem}
 .hero-top .eyebrow{margin:0}
 .pill{display:inline-flex;align-items:center;gap:.625rem;padding:.4375rem 1rem;border:1px solid var(--accent);border-radius:var(--radius);font-size:.9375rem;font-weight:500;text-decoration:none}
@@ -123,34 +127,53 @@ input,textarea,select,button{font:inherit}
 .hero .ask{margin:2rem 0 0;font-size:1.125rem;font-weight:600}
 .hero .btn-row{margin-top:1rem}
 
-/* Vantaggi: striscia a storie con clip vere del gestionale, si scorre di lato */
-.adv .lead{margin:0 0 2.5rem;max-width:42.5rem}
+/*
+ * Vantaggi: scheda madre. Cinque chip nell'ordine in cui una carta attraversa il negozio:
+ * acquisto (a) -> posto in magazzino (b, il processore) -> prezzo (c) -> ordine (d) -> numeri (e).
+ * Ogni chip ha la forma della sua schermata reale; scendono sfalsati con molto spazio, dove corrono le piste.
+ * Colori 60/30/10: i chip sono superfici vere, quindi perla con targhetta inchiostro;
+ * il lime compare solo sul chip a fuoco (quello al centro dello schermo, deciso da circuit.js).
+ */
+.adv .lead{margin:0;max-width:42.5rem}
 .adv .h2{margin-bottom:.75rem;max-width:56rem}
-.adv{overflow-x:clip}
-.reels{position:relative}
-/* La striscia esce fino al bordo dello schermo ma la prima scheda resta allineata al testo */
-.reels-track{
-  display:flex;gap:1rem;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;
-  /* --gut = spazio tra colonna di testo (.wrap, contenuto max 65.75rem) e bordo dello schermo */
-  --gut:max(1.5rem,calc((100vw - 65.75rem) / 2));
-  margin:0 calc(-1 * var(--gut));padding:0 var(--gut) 1rem;scroll-padding-inline:var(--gut);
-  scrollbar-width:thin;scrollbar-color:var(--edge) transparent;
+.mb{display:flex;flex-direction:column;gap:6.5rem;padding:5rem 0 2rem}
+.comp{position:relative;display:flex;flex-direction:column;gap:1.25rem}
+.pkg{
+  position:relative;display:flex;flex-direction:column;gap:10px;width:92%;padding:10px;
+  background:var(--sheet-bg);border:1px solid var(--sheet-edge);border-radius:12px;
+  transition:border-color .5s ease,background-color .6s ease;
 }
-.reels-track:focus-visible{outline:2px solid var(--text);outline-offset:4px}
-.tile{flex:0 0 17.5rem;scroll-snap-align:start;display:flex;flex-direction:column;gap:.75rem}
-.tile-media{position:relative;aspect-ratio:1/1;border:1px solid var(--edge);border-radius:var(--radius);overflow:hidden;background:var(--bg);cursor:pointer}
-.tile-media video,.tile-media img{display:block;width:100%;height:100%;object-fit:cover}
-.tile-bar{position:absolute;left:.625rem;right:.625rem;top:.625rem;height:3px;border-radius:2px;background:rgba(238,235,227,.28);overflow:hidden}
-.tile-bar i{display:block;height:100%;background:var(--accent);transform:scaleX(0);transform-origin:left center}
-.tile h3{font-size:1.1875rem;font-weight:700;line-height:1.25}
-.tile p{margin:0;color:var(--muted);font-size:1rem}
-.reels-nav{display:flex;justify-content:flex-end;gap:.5rem;margin-top:.5rem}
-.reels-nav[hidden]{display:none}
-.reels-btn{width:var(--touch);height:var(--touch);display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--edge);border-radius:var(--radius);background:transparent;color:var(--text);cursor:pointer;padding:0}
-.reels-btn svg{stroke:currentColor}
-.reels-btn:hover:not(:disabled){border-color:var(--text)}
-.reels-btn:disabled{opacity:.35;cursor:default}
-.more{margin:1.5rem 0 0;color:var(--muted)}
+.comp-b .pkg,.comp-d .pkg{align-self:flex-end}
+.pkg-media{position:relative;aspect-ratio:16/9;overflow:hidden;border-radius:6px;background:#111;cursor:pointer}
+.pkg-media video,.pkg-media img{display:block;width:100%;height:100%;object-fit:cover}
+.comp-text{display:flex;flex-direction:column;gap:.875rem;max-width:26rem}
+.comp-title{margin:0;font-family:var(--cond);font-weight:700;font-size:clamp(1.75rem,3vw,2.375rem);line-height:1.05;letter-spacing:.01em}
+.comp-title span{display:inline;padding:0 .18em .06em;background:var(--accent);color:var(--accent-text);
+  -webkit-box-decoration-break:clone;box-decoration-break:clone}
+.comp-note{margin:0;color:var(--muted);font-size:1.0625rem;line-height:1.55}
+.comp-b .comp-text,.comp-d .comp-text{align-self:flex-end}
+/* Forme: il processore ha la cornice perla, l'ordine è un banco di RAM con la tacca, i numeri un chip piccolo */
+.comp-b .pkg{border:3px solid var(--sheet-ink);padding:14px;border-radius:10px}
+.comp-d .pkg{border-radius:5px;padding:8px 8px 14px}
+.comp-d .pkg-media{border-radius:3px}
+.comp-d .pkg::after{content:"";position:absolute;bottom:-1px;left:36%;width:20px;height:9px;background:var(--surface);border:1px solid var(--sheet-edge);border-bottom:0;border-radius:4px 4px 0 0}
+.comp-e .pkg{width:68%;border-radius:18px;padding:12px}
+.comp-e .pkg-media{border-radius:10px}
+@media (min-width:1100px){
+  .mb{gap:10rem;padding:7rem 0 3rem}
+  .comp{flex-direction:row;align-items:center;gap:4.5rem}
+  .comp:nth-child(even){flex-direction:row-reverse}
+  .pkg{flex:0 0 auto;align-self:auto}
+  .comp-b .pkg,.comp-d .pkg{align-self:auto}
+  .comp-a .pkg{width:52%}
+  .comp-b .pkg{width:62%}
+  .comp-c .pkg{width:46%;margin-left:7%}
+  .comp-d .pkg{width:72%}
+  .comp-e .pkg{width:32%;margin-left:14%}
+  .comp-text{flex:0 1 22rem}
+  .comp-b .comp-text,.comp-d .comp-text{align-self:auto;text-align:right;align-items:flex-end}
+}
+.more{margin:3rem 0 0;color:var(--muted)}
 
 /* Box di invito ripetuto */
 .cta{margin-top:2.5rem;display:flex;flex-wrap:wrap;gap:1.25rem;align-items:center;justify-content:space-between;border:1px solid var(--edge);border-radius:var(--radius);padding:1.5rem 1.75rem;background:var(--bg)}
@@ -194,7 +217,7 @@ input,textarea,select,button{font:inherit}
 .chips{display:flex;flex-wrap:wrap;gap:.5rem}
 .chip{background:transparent;color:var(--sheet-ink);border:1px solid var(--sheet-edge);border-radius:var(--radius);padding:.25rem .75rem;font-size:.9375rem;font-weight:600}
 .hr{height:1px;background:var(--sheet-line)}
-.sep{height:1px;background:var(--border);margin:3.5rem 0 3rem}
+.sep{height:1px;background:var(--border);margin:5rem 0 4rem}
 .story{display:flex;flex-wrap:wrap;gap:1.5rem 3rem;align-items:flex-start}
 .story h3{flex:1 1 340px;min-width:0;font-weight:700;font-size:clamp(1.625rem,3vw,2.25rem);line-height:1.15;letter-spacing:-.02em}
 .story h3 span{color:var(--accent)}
@@ -203,7 +226,7 @@ input,textarea,select,button{font:inherit}
 blockquote{margin:.25rem 0 0;padding:.125rem 0 .125rem 1.5rem;border-left:1px solid var(--accent);font-size:1.1875rem;font-weight:600;line-height:1.45;color:var(--text)}
 
 /* FAQ */
-.faq{max-width:51.25rem;margin:0 auto;padding:5rem 1.5rem}
+.faq{max-width:51.25rem;margin:0 auto;padding:8rem 1.5rem}
 .faq .h2{margin-bottom:2rem}
 .faq-list{display:flex;flex-direction:column;gap:.75rem}
 details{border:1px solid var(--border);border-radius:var(--radius);background:var(--surface)}
@@ -219,8 +242,31 @@ details p{margin:0;padding:0 1.375rem 1.125rem;color:var(--muted)}
 .faq-more{margin-top:1.75rem;display:flex;flex-wrap:wrap;gap:1rem 1.25rem;align-items:center;justify-content:space-between}
 .faq-more p{margin:0;font-size:1.125rem;font-weight:600}
 
+/*
+ * Superfici perla (60/30/10): i riquadri d'invito, il pannello del metodo e le domande sono schede vere,
+ * come il modulo e la scheda di chi siamo. Testo inchiostro; il lime resta ai pulsanti, con bordo inchiostro come nel modulo.
+ */
+.cta,.cta.on-surface{background:var(--sheet-bg);color:var(--sheet-ink);border-color:var(--sheet-edge);color-scheme:light}
+.cta-txt .s{color:var(--sheet-muted)}
+.cta .btn{border-color:var(--sheet-ink)}
+.cta .btn:hover{background:var(--sheet-ink);border-color:var(--sheet-ink);color:var(--sheet-bg)}
+.cta .btn-ghost{background:transparent;color:var(--sheet-ink);border-color:var(--sheet-edge)}
+.cta .btn-ghost:hover{background:transparent;color:var(--sheet-ink);border-color:var(--sheet-ink)}
+.gantt{background:var(--sheet-bg);border-color:var(--sheet-edge);color:var(--sheet-ink)}
+.gantt .g-n{color:var(--sheet-ink)}
+.gantt .g-tag{border-color:var(--sheet-ink);color:var(--sheet-ink)}
+.gantt .g-label p{color:var(--sheet-muted)}
+.gantt .g-track{background:repeating-linear-gradient(90deg,transparent 0,transparent calc(100%/12 - 1px),var(--sheet-line) calc(100%/12 - 1px),var(--sheet-line) calc(100%/12))}
+.gantt .g-track i{box-shadow:inset 0 0 0 1px var(--sheet-ink)}
+.gantt .g-axis{border-bottom-color:var(--sheet-edge);color:var(--sheet-muted)}
+details{background:var(--sheet-bg);border-color:var(--sheet-edge);color:var(--sheet-ink)}
+details[open]{border-color:var(--sheet-ink)}
+summary::after{color:var(--sheet-ink)}
+details p{color:var(--sheet-muted)}
+summary:focus-visible{outline-color:var(--sheet-ink)}
+
 /* Contatti e modulo: il modulo è un foglio perla */
-.contact{display:flex;flex-wrap:wrap;gap:3rem;align-items:flex-start;padding-top:5.5rem;padding-bottom:5.5rem}
+.contact{display:flex;flex-wrap:wrap;gap:3rem;align-items:flex-start;padding-top:8rem;padding-bottom:8rem}
 .contact-txt{flex:1 1 320px;min-width:0;display:flex;flex-direction:column;gap:1.125rem}
 .contact-txt h2{font-weight:700;font-size:clamp(1.875rem,4vw,2.75rem);line-height:1.1}
 .contact-txt p{margin:0;color:var(--muted)}
@@ -329,17 +375,19 @@ footer{border-top:1px solid var(--border)}
 @media (max-width:640px){
   .nav-wa{display:none}
   .payoff{display:none}
-  .reel{max-width:none}
-  .tile{flex-basis:min(78vw,19rem)}
   .btn-row{max-width:100%;width:100%}
   .btn-lg{width:100%}
-  .hero{padding-top:1.75rem;padding-bottom:3.5rem}
+  .hero{padding-bottom:3.5rem}
+  .hero-media{width:100%;aspect-ratio:auto;height:min(152vw,76svh)}
+  .reel-video{object-position:center top}
+  .hero-copy{margin-top:-1.5rem}
   .hero-top{flex-direction:column;align-items:flex-start;gap:.625rem;margin-bottom:1.25rem}
   .hero h1{font-size:2.25rem}
   .hero .big{font-size:1.1875rem;margin-top:1.25rem}
   .hero .sub{font-size:1.0625rem}
   .hero .ask{font-size:1.0625rem;margin-top:1.375rem}
-  .pad,.contact{padding-top:3.5rem;padding-bottom:3.5rem}
+  .pad,.contact{padding-top:5rem;padding-bottom:5rem}
+  .faq{padding-top:5rem;padding-bottom:5rem}
   .g-row{flex-direction:column;align-items:stretch;gap:.375rem}
   .g-label{flex:none}
   .g-head{display:none}
@@ -353,8 +401,85 @@ footer{border-top:1px solid var(--border)}
   .fast .btn{width:100%}
 }
 
-/* Riduci movimento: niente scorrimento animato né entrate; i video restano fermi sul poster (vedi script) */
+/*
+ * Scheda madre (circuit.js): la pagina è il circuito del promo.
+ * Lo strato .board sta sopra gli sfondi delle sezioni e sotto i contenuti; i riquadri si accendono con .is-lit
+ * quando la corrente li raggiunge e lampeggiano con .is-hit quando arriva un pacchetto.
+ */
+body{position:relative}
+main>section>*,footer>*{position:relative;z-index:1}
+.board{position:absolute;left:0;top:0;width:100%;pointer-events:none;z-index:0;overflow:hidden}
+.board-svg{position:absolute;left:0;top:0;display:block}
+.board-fx{position:absolute;inset:0}
+.b-dot{fill:#2a2c30}
+.b-pcb{opacity:.9}
+.b-route{visibility:hidden}
+.b-route path{fill:none}
+.w-off{fill:none;stroke:#2f3135;stroke-width:2;stroke-linecap:round}
+.w-glow{fill:none;stroke:var(--text);stroke-width:7;stroke-linecap:round;opacity:.05}
+.w-base{fill:none;stroke:var(--text);stroke-width:2;stroke-linecap:round;opacity:.55;transition:stroke .4s ease,opacity .4s ease}
+.w.hot .w-base{stroke:var(--accent);opacity:.9}
+.w.hot .w-glow{stroke:var(--accent);opacity:.1}
+.w-flow{fill:none;stroke:#efffc2;stroke-width:2.4;stroke-linecap:round;stroke-dasharray:.1 22;opacity:0}
+.w-pad{fill:var(--bg);stroke:#3a3c40;stroke-width:2;transition:stroke .4s ease}
+.w.on .w-pad{stroke:var(--text)}
+.w.hot .w-pad{stroke:var(--accent)}
+.w-head{fill:#f6ffe0;opacity:0}
+.w-halo{fill:var(--text);opacity:0;fill-opacity:.18}
+/* Pista principale (segue i chip uno per uno): spessa e ben visibile. Collegamenti trasversali: sottili. */
+.main .w-off{stroke-width:2.6}
+.w.main .w-base{stroke-width:2.6;opacity:.72}
+.w.main .w-glow{stroke-width:12}
+.thin .w-off{stroke-width:1.2;stroke:#2c2e32}
+.w.thin .w-base{stroke-width:1.3;opacity:.38}
+.w.thin .w-glow,.w.thin .w-flow,.w.thin .w-halo{display:none}
+.w.thin .w-pad{stroke-width:1.4}
+/* Condensatori lungo la pista principale */
+.cap-leg,.cap-body,.cap-mark{fill:none;stroke:#3a3c40;stroke-width:2;transition:stroke .5s ease}
+.cap-body{fill:var(--bg)}
+.cap-mark{stroke-width:1.6}
+.w.on .cap-leg,.w.on .cap-body,.w.on .cap-mark{stroke:var(--text)}
+.w.hot .cap-leg,.w.hot .cap-body,.w.hot .cap-mark{stroke:var(--accent)}
+.b-pin{fill:#3a3c40;transition:fill .25s ease}
+.b-pin.lit{fill:#8d8a83}
+.b-pin.on{fill:var(--accent)}
+
+/* La carta e il suo prezzo che attraversano la scheda */
+.pk{position:absolute;left:0;top:0;will-change:transform,opacity}
+.pk-price{
+  height:26px;padding:0 8px;border-radius:5px;background:var(--accent);color:var(--accent-text);
+  font-family:var(--cond);font-weight:700;font-size:17px;line-height:26px;white-space:nowrap;
+}
+.pk-card{width:34px;height:48px;border-radius:3px;border:1.5px solid var(--accent);background:#111 center/cover no-repeat}
+
+/*
+ * Stati dei componenti (solo se lo script del circuito è attivo):
+ * spenti e grigi finché la corrente non arriva (.is-lit), lime solo quando sono a fuoco (.is-focus).
+ */
+.gantt,.people,form.sheet,details{transition:border-color .5s ease,box-shadow .6s ease}
+.pkg-media{transition:filter .8s ease}
+.js-circuit .comp:not(.is-lit) .pkg-media{filter:grayscale(.9) brightness(.5)}
+.js-circuit .comp:not(.is-lit) .pkg{background:#2a2c30;border-color:#3a3c40}
+.js-circuit .comp-title span{background:linear-gradient(var(--accent),var(--accent)) left/0% 100% no-repeat;color:var(--text);transition:background-size .5s cubic-bezier(.2,.7,.2,1),color .3s ease .15s}
+.js-circuit .comp.is-lit .comp-title span{background-size:100% 100%;color:var(--accent-text)}
+.js-circuit .comp:not(.is-lit) .comp-note{color:var(--faint)}
+.comp-d .pkg::after{transition:background-color .45s ease}
+.js-circuit .comp-d:not(.is-lit) .pkg::after{background:var(--surface);border-color:#3a3c40}
+.comp.is-focus .pkg{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.people.is-focus,form.sheet.is-focus{box-shadow:0 0 0 1px var(--accent)}
+.faq-list.is-focus details{border-color:var(--sheet-ink)}
+.comp.is-hit .pkg{border-color:var(--accent)}
+/* Metodo: le barre si accendono in ordine, come le fasi */
+.g-track i{transition:background-color .45s ease}
+.js-circuit .gantt .g-track i{background:#d2cec4;box-shadow:none}
+.js-circuit .gantt.is-lit .g-track i{background:var(--accent);box-shadow:inset 0 0 0 1px var(--sheet-ink)}
+.gantt.is-lit .g-row:nth-child(3) .g-track i{transition-delay:.35s}
+.gantt.is-lit .g-row:nth-child(4) .g-track i{transition-delay:.7s}
+.gantt.is-lit .g-row:nth-child(5) .g-track i{transition-delay:1.05s}
+
+/* Riduci movimento: niente scorrimento animato né entrate; i video restano fermi sul poster e il circuito è già acceso e fermo */
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .dock{transition:none}
+  .gantt,.people,form.sheet,.pkg,.pkg-media,.comp-title span,details,.g-track i,.b-pin{transition:none !important}
 }

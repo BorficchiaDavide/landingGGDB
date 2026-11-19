@@ -49,9 +49,22 @@ try {
 
 <main>
 <!-- HERO -->
-<section id="top" class="wrap hero">
-<div class="hero-grid">
-<div class="hero-copy">
+<section id="top" class="hero">
+<!--
+  Apertura: il promo ecosistema in loop, senza titolo né chiusura (già ripresi altrove nella pagina).
+  Non è un componente del circuito: si fonde con la pagina (stesso carbone del fondo, bordi sfumati).
+  Orizzontale su desktop, verticale su telefono (lo sceglie lo script). Con "riduci movimento" resta fermo.
+-->
+<figure class="reel hero-media">
+<div class="hero-video"><video class="reel-video" src="media/hero.mp4" poster="media/hero.jpg" data-src-v="media/hero_v.mp4" data-poster-v="media/hero_v.jpg" width="1600" height="900" muted loop playsinline preload="none" controls aria-label="Video GGDB"></video></div>
+<div class="reel-ctrl" hidden>
+<button type="button" class="reel-btn" data-act="play" aria-label="Metti in pausa">
+<svg class="i-pause" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5v14"></path><path d="M15 5v14"></path></svg>
+<svg class="i-play" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4.5v15l12-7.5z"></path></svg>
+</button>
+</div>
+</figure>
+<div class="wrap hero-copy">
 <div class="hero-top">
 <div class="where">
 <span class="faces" aria-hidden="true"><img src="giacomo.jpg" alt="" width="40" height="40"><img src="davide.jpg" alt="" width="40" height="40"></span>
@@ -73,22 +86,6 @@ Prima analisi gratuita fino al 31/12 →
 Scrivici su WhatsApp</a>
 </div>
 </div>
-
-<!-- Promo verticale: l'unico video che parte da solo, muto. Con "riduci movimento" resta fermo sul poster. -->
-<figure class="reel">
-<video class="reel-video" src="media/promo.mp4" poster="media/promo.jpg" muted loop playsinline preload="metadata" controls aria-label="Video GGDB"></video>
-<div class="reel-ctrl" hidden>
-<button type="button" class="reel-btn" data-act="sound" aria-label="Attiva l'audio" aria-pressed="false">
-<svg class="i-off" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H3v6h3l5 4V5z"></path><path d="M22 9l-6 6"></path><path d="M16 9l6 6"></path></svg>
-<svg class="i-on" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H3v6h3l5 4V5z"></path><path d="M15.5 8.5a5 5 0 0 1 0 7"></path><path d="M18.5 5.5a9 9 0 0 1 0 13"></path></svg>
-</button>
-<button type="button" class="reel-btn" data-act="play" aria-label="Metti in pausa">
-<svg class="i-pause" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5v14"></path><path d="M15 5v14"></path></svg>
-<svg class="i-play" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4.5v15l12-7.5z"></path></svg>
-</button>
-</div>
-</figure>
-</div>
 </section>
 
 <!-- VANTAGGI -->
@@ -97,59 +94,54 @@ Scrivici su WhatsApp</a>
 <p class="eyebrow">Cosa cambia per te</p>
 <h2 class="h2">Meno tempo a rincorrere il lavoro, più tempo per far crescere la tua attività.</h2>
 <p class="lead">Non esiste una soluzione uguale per tutti: partiamo dalla tua giornata di lavoro e interveniamo dove il beneficio è più grande.</p>
-<!-- Striscia a storie: ogni vantaggio con una clip vera del gestionale (ambiente demo). Le clip partono solo quando la scheda è in vista. -->
-<div class="reels">
-<div class="reels-track" tabindex="0" aria-label="Vantaggi">
+<!--
+  Scheda madre: i vantaggi sono chip collegati nell'ordine in cui una carta attraversa il negozio:
+  acquisto -> posto in magazzino (il processore) -> prezzo -> ordine -> numeri.
+  Ogni chip ha la forma della sua schermata reale (gestionale da desktop, quindi orizzontale);
+  accanto al chip il titolo (in nero su fascia lime) e sotto la descrizione. Piste e fuoco: circuit.js.
+-->
+<div class="mb">
 
-<article class="tile">
-<div class="tile-media">
-<video src="media/posizione.mp4" poster="media/posizione.jpg" muted loop playsinline preload="none" aria-hidden="true"></video>
-<span class="tile-bar" aria-hidden="true"><i></i></span>
+<article class="comp comp-a" data-shape="wide">
+<div class="pkg"><div class="pkg-media"><video src="media/acquisti.mp4" poster="media/acquisti.jpg" width="960" height="540" muted loop playsinline preload="none" aria-hidden="true"></video></div></div>
+<div class="comp-text">
+<h3 class="comp-title"><span>Acquisti valutati in un attimo</span></h3>
+<p class="comp-note">Buylist sempre aggiornata e valutazione rapida delle collezioni: offerte in linea con il mercato, senza rischiare di pagare troppo.</p>
 </div>
-<h3>Trovi ogni carta al primo colpo</h3>
-<p>Niente più ricerche tra box e raccoglitori: sai sempre cosa hai e dove si trova, in negozio o in magazzino.</p>
 </article>
 
-<article class="tile">
-<div class="tile-media">
-<video src="media/prezzi.mp4" poster="media/prezzi.jpg" muted loop playsinline preload="none" aria-hidden="true"></video>
-<span class="tile-bar" aria-hidden="true"><i></i></span>
+<article class="comp comp-b" data-shape="cpu">
+<div class="pkg"><div class="pkg-media"><video src="media/trovi.mp4" poster="media/trovi.jpg" width="960" height="540" muted loop playsinline preload="none" aria-hidden="true"></video></div></div>
+<div class="comp-text">
+<h3 class="comp-title"><span>Trovi ogni carta al primo colpo</span></h3>
+<p class="comp-note">Niente più ricerche tra box e raccoglitori: sai sempre cosa hai e dove si trova, in negozio o in magazzino.</p>
 </div>
-<h3>Prezzi in linea con il mercato</h3>
-<p>Smetti di inseguire le quotazioni a mano e non rischi di svendere le carte di valore.</p>
 </article>
 
-<article class="tile">
-<div class="tile-media">
-<video src="media/picking.mp4" poster="media/picking.jpg" muted loop playsinline preload="none" aria-hidden="true"></video>
-<span class="tile-bar" aria-hidden="true"><i></i></span>
+<article class="comp comp-c" data-shape="wide">
+<div class="pkg"><div class="pkg-media"><video src="media/prezzi.mp4" poster="media/prezzi.jpg" width="960" height="540" muted loop playsinline preload="none" aria-hidden="true"></video></div></div>
+<div class="comp-text">
+<h3 class="comp-title"><span>Prezzi in linea con il mercato</span></h3>
+<p class="comp-note">Smetti di inseguire le quotazioni a mano e non rischi di svendere le carte di valore.</p>
 </div>
-<h3>Ordini evasi senza affanni</h3>
-<p>Gestisci le vendite di tutti i canali da un unico posto, senza vendere due volte la stessa carta.</p>
 </article>
 
-<article class="tile">
-<div class="tile-media">
-<img src="media/numeri.jpg" alt="" width="640" height="640" loading="lazy">
+<article class="comp comp-d" data-shape="ram">
+<div class="pkg"><div class="pkg-media"><video src="media/ordini.mp4" poster="media/ordini.jpg" width="960" height="540" muted loop playsinline preload="none" aria-hidden="true"></video></div></div>
+<div class="comp-text">
+<h3 class="comp-title"><span>Ordini evasi senza affanni</span></h3>
+<p class="comp-note">Gestisci le vendite di tutti i canali da un unico posto, senza vendere due volte la stessa carta.</p>
 </div>
-<h3>Decisioni basate sui numeri</h3>
-<p>Dashboard chiare per vedere cosa vende, cosa resta fermo e dove guadagni davvero.</p>
 </article>
 
-<article class="tile">
-<div class="tile-media">
-<video src="media/scansione.mp4" poster="media/scansione.jpg" muted loop playsinline preload="none" aria-hidden="true"></video>
-<span class="tile-bar" aria-hidden="true"><i></i></span>
+<article class="comp comp-e" data-shape="small">
+<div class="pkg"><div class="pkg-media"><video src="media/numeri.mp4" poster="media/numeri.jpg" width="960" height="540" muted loop playsinline preload="none" aria-hidden="true"></video></div></div>
+<div class="comp-text">
+<h3 class="comp-title"><span>Decisioni basate sui numeri</span></h3>
+<p class="comp-note">Dashboard chiare per vedere cosa vende, cosa resta fermo e dove guadagni davvero.</p>
 </div>
-<h3>Acquisti valutati in un attimo</h3>
-<p>Buylist sempre aggiornata e valutazione rapida delle collezioni: offerte in linea con il mercato, senza rischiare di pagare troppo.</p>
 </article>
 
-</div>
-<div class="reels-nav" hidden>
-<button type="button" class="reels-btn" data-dir="-1" aria-label="Precedente"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"></path></svg></button>
-<button type="button" class="reels-btn" data-dir="1" aria-label="Successiva"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"></path></svg></button>
-</div>
 </div>
 
 <p class="more">E se ti serve altro (integrazioni, collegamento con il tuo hardware, automazioni) lo costruiamo su misura.</p>
@@ -443,7 +435,8 @@ Scrivici su WhatsApp</a></div>
   var fermo = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   function avvia(v) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
 
-  // Promo in apertura: parte muto solo se è in vista e se il visitatore non ha chiesto meno movimento.
+  // Apertura: il promo in loop, muto. Su telefono la versione verticale.
+  // Parte solo se è in vista e se il visitatore non ha chiesto meno movimento.
   var reel = document.querySelector('.reel');
   if (reel) {
     var rv = reel.querySelector('video');
@@ -451,6 +444,12 @@ Scrivici su WhatsApp</a></div>
     var bSuono = ctrl.querySelector('[data-act="sound"]');
     var bPlay = ctrl.querySelector('[data-act="play"]');
     var vuoleVederlo = !fermo;
+    if (rv.getAttribute('data-src-v') && window.matchMedia && window.matchMedia('(max-width: 700px)').matches) {
+      rv.poster = rv.getAttribute('data-poster-v');
+      rv.src = rv.getAttribute('data-src-v');
+      rv.width = 720; rv.height = 1280;
+    }
+    rv.preload = 'auto';
     rv.removeAttribute('controls');
     ctrl.hidden = false;
     var stato = function () {
@@ -463,7 +462,7 @@ Scrivici su WhatsApp</a></div>
     var alterna = function () { vuoleVederlo = rv.paused; if (vuoleVederlo) avvia(rv); else rv.pause(); };
     bPlay.addEventListener('click', alterna);
     rv.addEventListener('click', alterna);
-    bSuono.addEventListener('click', function () {
+    if (bSuono) bSuono.addEventListener('click', function () {
       rv.muted = !rv.muted;
       bSuono.setAttribute('aria-pressed', String(!rv.muted));
       bSuono.setAttribute('aria-label', rv.muted ? "Attiva l'audio" : "Disattiva l'audio");
@@ -481,56 +480,27 @@ Scrivici su WhatsApp</a></div>
     stato();
   }
 
-  // Striscia a storie: ogni clip parte quando la sua scheda è in vista; la barra in alto segue il video.
-  var striscia = document.querySelector('.reels-track');
-  if (striscia) {
-    var navStorie = document.querySelector('.reels-nav');
-    var bPrec = navStorie.querySelector('[data-dir="-1"]');
-    var bSucc = navStorie.querySelector('[data-dir="1"]');
-    var passo = function () {
-      var t = striscia.querySelector('.tile');
-      var gap = parseFloat(getComputedStyle(striscia).columnGap) || 16;
-      return t ? t.getBoundingClientRect().width + gap : 300;
-    };
-    [bPrec, bSucc].forEach(function (b) {
-      b.addEventListener('click', function () {
-        striscia.scrollBy({left: passo() * Number(b.getAttribute('data-dir')), behavior: fermo ? 'auto' : 'smooth'});
-      });
-    });
-    var bordi = function () {
-      var max = striscia.scrollWidth - striscia.clientWidth - 2;
-      navStorie.hidden = max <= 0;
-      bPrec.disabled = striscia.scrollLeft <= 2;
-      bSucc.disabled = striscia.scrollLeft >= max;
-    };
-    striscia.addEventListener('scroll', bordi, {passive: true});
-    window.addEventListener('resize', bordi);
-    bordi();
+  // Chip della scheda madre: un tocco ferma o riavvia la clip.
+  // Quale clip va lo decide il fuoco di circuit.js (solo il chip al centro dello schermo);
+  // se il circuito non è attivo, ogni clip parte quando il suo chip è in vista.
+  var scheda = document.querySelector('.mb');
+  if (scheda) {
     var viste = {};
-    var clip = [].slice.call(striscia.querySelectorAll('video'));
+    var clip = [].slice.call(scheda.querySelectorAll('video'));
     clip.forEach(function (v, i) {
-      var tile = v.closest('.tile');
-      var barra = tile.querySelector('.tile-bar i');
-      var raf = 0;
+      var comp = v.closest('.comp');
       if (fermo) v.setAttribute('data-fermo', '1');
-      var giro = function () {
-        if (v.duration) barra.style.transform = 'scaleX(' + (v.currentTime / v.duration) + ')';
-        raf = requestAnimationFrame(giro);
-      };
       v.addEventListener('play', function () {
-        tile.classList.add('is-playing');
-        cancelAnimationFrame(raf);
-        giro();
-        if (!viste[i]) { viste[i] = true; track('Storia vista', {storia: tile.querySelector('h3').textContent}); }
+        if (!viste[i]) { viste[i] = true; track('Clip vista', {clip: comp.querySelector('h3').textContent}); }
       });
-      v.addEventListener('pause', function () { tile.classList.remove('is-playing'); cancelAnimationFrame(raf); });
-      tile.querySelector('.tile-media').addEventListener('click', function () {
+      comp.querySelector('.pkg-media').addEventListener('click', function () {
         if (v.paused) { v.removeAttribute('data-fermo'); avvia(v); }
         else { v.setAttribute('data-fermo', '1'); v.pause(); }
       });
     });
     if ('IntersectionObserver' in window) {
       var ioClip = new IntersectionObserver(function (entries) {
+        if (document.documentElement.classList.contains('js-circuit')) return;
         entries.forEach(function (en) {
           var v = en.target;
           if (en.isIntersecting) { if (!v.hasAttribute('data-fermo')) avvia(v); }
@@ -724,5 +694,6 @@ Scrivici su WhatsApp</a></div>
   });
 })();
 </script>
+<script src="circuit.js" defer></script>
 </body>
 </html>
