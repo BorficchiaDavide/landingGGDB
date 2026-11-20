@@ -45,6 +45,8 @@ body{
 }
 ::selection{background:var(--accent);color:var(--accent-text)}
 :focus-visible{outline:2px solid var(--text);outline-offset:2px}
+/* sui fogli perla l'anello di focus è inchiostro, altrimenti sparisce */
+.sheet :focus-visible,.cta :focus-visible,details :focus-visible{outline-color:var(--sheet-ink)}
 a{color:inherit;text-underline-offset:3px}
 a:hover{color:#fff}
 p{text-wrap:pretty}
@@ -74,15 +76,14 @@ input,textarea,select,button{font:inherit}
 .logo .d{fill:var(--text)}
 .logo .m{fill:var(--accent)}
 
-/* Bottoni: lime pieno per l'azione principale, bordo sottile per il resto */
+/* Bottoni: l'azione principale ha corpo scuro e contorno lime (vedi "Pulsanti d'azione" in fondo), il resto bordo sottile */
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:.625rem;
   min-height:var(--touch);padding:0 1.25rem;border-radius:var(--radius);
   font-weight:600;font-size:1rem;text-decoration:none;white-space:nowrap;cursor:pointer;
-  border:1px solid var(--accent);background:var(--accent);color:var(--accent-text);
+  border:1px solid var(--accent);
 }
 .btn{transition:transform .1s ease-out,background-color .15s ease,border-color .15s ease,color .15s ease}
-.btn:hover{background:var(--text);border-color:var(--text);color:var(--accent-text)}
 .btn:active,form.sheet button[type=submit]:active,.reel-btn:active,.opt-btn:active span,summary:active{transform:scale(.97)}
 form.sheet button[type=submit],.reel-btn,.opt-btn span{transition:transform .1s ease-out,background-color .15s ease,border-color .15s ease,color .15s ease}
 .btn-ghost{background:transparent;color:var(--text);border-color:var(--edge)}
@@ -159,7 +160,7 @@ form.sheet button[type=submit],.reel-btn,.opt-btn span{transition:transform .1s 
 .pkg-media video,.pkg-media img{display:block;width:100%;height:100%;object-fit:cover}
 .comp-text{display:flex;flex-direction:column;gap:.875rem;max-width:26rem}
 .comp-title{margin:0;font-family:var(--cond);font-weight:700;font-size:clamp(1.75rem,3vw,2.375rem);line-height:1.28;letter-spacing:-.005em}
-.comp-title span{display:inline;padding:.02em .2em .06em;background:var(--accent);color:var(--accent-text);
+.comp-title span{display:inline;padding:.02em .28em .06em .36em;background:var(--raised);color:var(--text);box-shadow:inset 4px 0 0 var(--accent);
   -webkit-box-decoration-break:clone;box-decoration-break:clone}
 .comp-note{margin:0;color:var(--muted);font-size:1.0625rem;line-height:1.55}
 .comp-b .comp-text,.comp-d .comp-text{align-self:flex-end}
@@ -183,6 +184,8 @@ form.sheet button[type=submit],.reel-btn,.opt-btn span{transition:transform .1s 
   .comp-e .pkg{width:32%;margin-left:14%}
   .comp-text{flex:0 1 22rem}
   .comp-b .comp-text,.comp-d .comp-text{align-self:auto;text-align:right;align-items:flex-end}
+  .comp-b .comp-title span,.comp-d .comp-title span{padding:.02em .36em .06em .28em;box-shadow:inset -4px 0 0 var(--accent)}
+  .js-circuit .comp-b:not(.is-lit) .comp-title span,.js-circuit .comp-d:not(.is-lit) .comp-title span{box-shadow:inset -4px 0 0 var(--edge)}
 }
 .more{margin:3rem 0 0;color:var(--muted)}
 
@@ -255,8 +258,6 @@ details p{margin:0;padding:0 1.375rem 1.125rem;color:var(--muted)}
  */
 .cta,.cta.on-surface{background:var(--sheet-bg);color:var(--sheet-ink);border-color:var(--sheet-edge);color-scheme:light}
 .cta-txt .s{color:var(--sheet-muted)}
-.cta .btn{border-color:var(--sheet-ink)}
-.cta .btn:hover{background:var(--sheet-ink);border-color:var(--sheet-ink);color:var(--sheet-bg)}
 .cta .btn-ghost{background:transparent;color:var(--sheet-ink);border-color:var(--sheet-edge)}
 .cta .btn-ghost:hover{background:transparent;color:var(--sheet-ink);border-color:var(--sheet-ink)}
 details{background:var(--sheet-bg);border-color:var(--sheet-edge);color:var(--sheet-ink)}
@@ -303,14 +304,13 @@ form.sheet input:focus,form.sheet select:focus,form.sheet textarea:focus{outline
 .consent label{font-size:.875rem;color:var(--sheet-muted)}
 .consent a{color:var(--sheet-ink)}
 form.sheet button[type=submit]{
-  background:var(--accent);color:var(--accent-text);border:1px solid var(--sheet-ink);border-radius:var(--radius);
+  border-radius:var(--radius);
   min-height:3.25rem;padding:0 1.25rem;font-weight:700;font-size:1rem;cursor:pointer;
 }
-form.sheet button[type=submit]:hover{background:var(--sheet-ink);color:var(--sheet-bg)}
 form.sheet button[disabled]{opacity:.6;cursor:default}
 #form-fallito{border:1px solid var(--sheet-danger);border-radius:var(--radius);padding:1.125rem 1.25rem;background:var(--sheet-field);display:flex;flex-direction:column;gap:.75rem}
 #form-fallito p{margin:0;color:var(--sheet-ink);font-size:1rem}
-#form-fallito a{border:1px solid var(--sheet-ink);background:var(--accent);color:var(--accent-text);border-radius:var(--radius);min-height:3.25rem;padding:0 1.25rem;font-weight:600;display:inline-flex;align-items:center;justify-content:center;text-decoration:none}
+#form-fallito a{border-radius:var(--radius);min-height:3.25rem;padding:0 1.25rem;font-weight:600;display:inline-flex;align-items:center;justify-content:center;text-decoration:none}
 
 /* Footer */
 footer{border-top:1px solid var(--border)}
@@ -329,6 +329,9 @@ footer{border-top:1px solid var(--border)}
     transform:translateY(110%);transition:transform .32s cubic-bezier(.16,1,.3,1);
   }
   .dock.is-on{transform:none}
+  /* quando c'è la barra in basso, il pulsante in alto non si ripete */
+  .nav-cta{transition:opacity .2s ease}
+  body:has(.dock.is-on) .nav-cta{opacity:0;visibility:hidden}
   .dock .btn{flex:1 1 auto;min-height:3.25rem}
   .dock .dock-wa{flex:0 0 3.25rem;padding:0}
   footer{padding-bottom:calc(5rem + env(safe-area-inset-bottom))}
@@ -470,7 +473,7 @@ form.guided{gap:0}
 .step:focus{outline:none}
 .step-n{margin:0;font-size:.875rem;font-weight:600;color:var(--sheet-muted)}
 .step1 .step-n{margin-bottom:-1.125rem}
-.step-head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin:-.75rem 0 -1.5rem}
+.step-head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin:-.75rem 0 -1.25rem}
 .step-head .back{min-height:0;padding:.75rem .25rem}
 .step-title{font-size:1.25rem;line-height:1.3;font-weight:700;color:var(--sheet-ink)}
 .recap{margin:0;font-size:.9375rem;color:var(--sheet-muted)}
@@ -478,8 +481,7 @@ form.guided{gap:0}
 .step2 .step-title{margin:0 0 -.75rem}
 .back{min-height:var(--touch);padding:0 .25rem;border:0;background:none;color:var(--sheet-ink);font-weight:600;font-size:.9375rem;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
 .back:hover{text-decoration-thickness:2px}
-form.sheet .next{align-self:flex-start;min-width:12rem;min-height:3.25rem;padding:0 1.5rem;border:1px solid var(--sheet-ink);border-radius:var(--radius);background:var(--accent);color:var(--accent-text);font-weight:700;font-size:1rem;cursor:pointer;transition:transform .1s ease-out,background-color .15s ease,color .15s ease}
-form.sheet .next:hover{background:var(--sheet-ink);color:var(--sheet-bg)}
+form.sheet .next{align-self:flex-start;min-width:12rem;min-height:3.25rem;padding:0 1.5rem;border-radius:var(--radius);font-weight:700;font-size:1rem;cursor:pointer}
 form.sheet .next:active{transform:scale(.97)}
 /* senza JavaScript: tutto visibile, niente Avanti né Modifica */
 form.guided:not(.js-guided) .next,form.guided:not(.js-guided) .back,form.guided:not(.js-guided) .step-n,form.guided:not(.js-guided) .recap{display:none}
@@ -496,8 +498,8 @@ form.guided:not(.js-guided) .step2{margin-top:1.75rem;padding-top:1.75rem;border
 /* Chi siamo: una frase d'apertura più grande, il racconto, poi la frase che converte nella fascia lime */
 .split-txt .about-lead{color:var(--text);font-size:1.3125rem;line-height:1.45}
 .punch{margin:1rem 0 0;text-wrap:balance;font-family:var(--cond);font-weight:700;font-size:clamp(2rem,3.6vw,2.875rem);line-height:1.22;letter-spacing:-.005em;max-width:none}
-.split-txt .punch{color:var(--accent-text);font-size:clamp(2rem,3.6vw,2.875rem);line-height:1.22;max-width:none}
-.punch span{background:var(--accent);padding:.02em .22em .06em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.split-txt .punch{color:var(--text);font-size:clamp(2rem,3.6vw,2.875rem);line-height:1.22;max-width:none}
+.punch span{background:var(--raised);padding:.02em .3em .06em .4em;box-shadow:inset 4px 0 0 var(--accent);-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .split-act.btn-row{margin-top:1.25rem}
 .people .chips{margin-top:-.25rem}
 
@@ -574,8 +576,9 @@ rect.w-pad{rx:1}
 .pkg-media{transition:filter .8s ease}
 .js-circuit .comp:not(.is-lit) .pkg-media{filter:grayscale(.9) brightness(.5)}
 .js-circuit .comp:not(.is-lit) .pkg{background:#2a2c30;border-color:#3a3c40}
-.js-circuit .comp-title span{background:linear-gradient(var(--accent),var(--accent)) left/0% 100% no-repeat;color:var(--text);transition:background-size .5s cubic-bezier(.2,.7,.2,1),color .3s ease .15s}
-.js-circuit .comp.is-lit .comp-title span{background-size:100% 100%;color:var(--accent-text)}
+/* il filo si accende quando la corrente arriva al chip; la fascia resta grigia: il lime pieno è dei pulsanti */
+.js-circuit .comp-title span{transition:box-shadow .5s cubic-bezier(.2,.7,.2,1)}
+.js-circuit .comp:not(.is-lit) .comp-title span{box-shadow:inset 4px 0 0 var(--edge);color:var(--muted)}
 .js-circuit .comp:not(.is-lit) .comp-note{color:var(--faint)}
 .comp-d .pkg::after{transition:background-color .45s ease}
 .js-circuit .comp-d:not(.is-lit) .pkg::after{background:var(--surface);border-color:#3a3c40}
@@ -593,3 +596,36 @@ rect.w-pad{rx:1}
   .dock{transition:none}
   .people,form.sheet,.pkg,.pkg-media,.comp-title span,details,.b-pin{transition:none !important}
 }
+
+/*
+ * Pulsanti d'azione, tutti uguali ovunque (barra, sezioni, modulo, barra in basso): corpo scuro, testo e contorno lime.
+ * Il lime pieno arriva solo al passaggio del mouse e alla pressione: il circuito si chiude. Su fondo perla il corpo scuro
+ * è il pulsante più forte della scheda; il contorno lime poggia sul corpo, non sulla perla.
+ * Le due reazioni (passaggio, pressione) sono una regola sola: non esistono casi particolari.
+ */
+.btn:not(.btn-ghost),form.sheet .next,form.sheet button[type=submit],#form-fallito a{
+  position:relative;border:2px solid var(--accent);background:var(--bg);color:var(--accent);
+  transition:background-color .16s ease,color .16s ease,border-color .16s ease,transform .1s ease-out}
+.btn:not(.btn-ghost):hover,form.sheet .next:hover,form.sheet button[type=submit]:hover,#form-fallito a:hover{background:var(--accent);color:var(--accent-text)}
+.cta .btn:not(.btn-ghost):hover,form.sheet .next:hover,form.sheet button[type=submit]:hover,#form-fallito a:hover{border-color:var(--sheet-ink)}
+form.sheet button[disabled]:hover{background:var(--bg);color:var(--accent)}
+
+/*
+ * Accensione (circuit.js non c'entra: lo fa lo script in fondo alla pagina). Arrivano tre piste da sinistra, la corrente
+ * disegna il contorno e il pulsante resta acceso, con un respiro lentissimo del contorno finché è sullo schermo.
+ * Usa un'animazione e non una transizione, così non tocca la reazione al mouse. Una volta sola per pulsante.
+ */
+.cta-p.cta-off{border-color:rgba(197,242,58,.2);color:var(--muted)}
+.cta-p.cta-on{animation:cta-accendi 1.2s ease backwards}
+@keyframes cta-accendi{0%,56%{border-color:rgba(197,242,58,.2);color:var(--muted)}100%{border-color:var(--accent);color:var(--accent)}}
+.cta-trace{position:absolute;left:-2px;top:-2px;overflow:visible;pointer-events:none;fill:none;stroke:var(--accent);stroke-width:2;stroke-linecap:round}
+.cta-trace .t-stub,.cta-trace .t-ring{stroke-dasharray:100;stroke-dashoffset:100}
+.cta-on .cta-trace .t-stub{transition:stroke-dashoffset .32s cubic-bezier(.4,0,.2,1);stroke-dashoffset:0}
+.cta-on .cta-trace .t-ring{transition:stroke-dashoffset .5s cubic-bezier(.4,0,.2,1) .26s,opacity .3s ease 1s;stroke-dashoffset:0;opacity:0}
+.cta-on .cta-trace .t-stub{transition:stroke-dashoffset .32s cubic-bezier(.4,0,.2,1),opacity .5s ease 1.2s;opacity:0}
+.cta-trace .t-calm{stroke:#fbffe8;stroke-width:2;opacity:0}
+/* dopo l'accensione la corrente "respira": ogni 6 s il contorno si schiarisce appena e torna com'è. Niente si sposta. */
+.cta-on.cta-vis .cta-trace .t-calm{animation:cta-respiro 6s ease-in-out 1.6s infinite}
+.cta-p:hover .cta-trace .t-calm{animation:none;opacity:0}
+@keyframes cta-respiro{0%,100%{opacity:0}50%{opacity:.34}}
+@media (prefers-reduced-motion:reduce){.cta-trace{display:none}.cta-p.cta-on,.cta-p.cta-off{animation:none;border-color:var(--accent);color:var(--accent)}}

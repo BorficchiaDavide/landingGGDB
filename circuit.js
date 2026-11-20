@@ -241,8 +241,8 @@
       var LB = Math.round(col.l - 104), LC = Math.round(col.l - 150), RB = Math.round(col.r + 104), RC = Math.round(col.r + 150);
       var okL = function (x) { return x > 10; }, okR = function (x) { return x < W - 10; };
       var dk = docRect(q('#metodo .deck')), c1 = docRect(q('#metodo .pcard')), c2 = docRect(q('#metodo .pcard:nth-child(2)'));
-      // i titoli: la pista si ferma poco prima della prima lettera; il pulsante: il suo bordo, non la riga che lo contiene
-      var h2c = docRect(q('.contact-txt h2')), faq3 = docRect(q('#faq .h2')), btnEls = document.querySelectorAll('.hero-copy .btn-row .btn'), btns = docRect(btnEls[btnEls.length - 1]);
+      // i titoli: la pista si ferma poco prima della prima lettera
+      var h2c = docRect(q('.contact-txt h2')), faq3 = docRect(q('#faq .h2'));
       h2c.l -= 14; faq3.l -= 14;
       // carta "Prima chiamata" -> "La prima chiamata" nei contatti: sono la stessa cosa
       var laneD1 = okL(LC) ? LC : (okL(LB) ? LB : 0);
@@ -253,8 +253,6 @@
       wire('x-analisi', [[N.e.r.l, N.e.r.b - 30], [laneL, N.e.r.b - 30], [laneL, dk.t - 18], [Math.round(c2.l + c2.w / 2), dk.t - 18], [Math.round(c2.l + c2.w / 2), c2.t]], 2, 5, {cls: 'data', both: [N.e, N.gantt]});
       // chi siamo -> carta "Prima chiamata": la prima chiamata la fate voi
       if (okR(RB)) wire('x-noi', [[N.people.r.r, N.people.r.t + 60], [RB, N.people.r.t + 60], [RB, dk.t - 34], [Math.round(c1.l + c1.w * 0.35), dk.t - 34], [Math.round(c1.l + c1.w * 0.35), c1.t]], 1, 0, {cls: 'sig', both: [N.people, N.gantt]});
-      // pulsante dell'apertura -> modulo: il pulsante porta lì
-      if (okR(RC)) wire('x-iniziamo', [[btns.r, Math.round(btns.t + btns.h / 2)], [RC, Math.round(btns.t + btns.h / 2)], [RC, N.form.r.t + 90], [N.form.r.r, N.form.r.t + 90]], 1, 0, {cls: 'sig', both: [N.hero, N.form]});
     }
 
     // ---------- condensatori lungo la pista principale: si accendono quando passa la corrente

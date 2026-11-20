@@ -505,8 +505,56 @@ Scrivici su WhatsApp</a></div>
       dock.classList.toggle('is-on', on);
       if (on) dock.removeAttribute('inert'); else dock.setAttribute('inert', '');
     };
-    new IntersectionObserver(function (en) { heroInVista = en[0].isIntersecting; aggiornaDock(); }).observe(heroBtn);
+    // la barra compare solo dopo aver superato i pulsanti dell'apertura, non prima di vederli
+    new IntersectionObserver(function (en) { heroInVista = en[0].isIntersecting || en[0].boundingClientRect.top > 0; aggiornaDock(); }).observe(heroBtn);
     new IntersectionObserver(function (en) { moduloInVista = en[0].isIntersecting; aggiornaDock(); }).observe(contatti);
+  }
+
+  // ---------- Pulsanti d'azione che si accendono (stile in styles.css, "Pulsanti d'azione")
+  // Una volta sola per pulsante, quando è ben dentro lo schermo; poi il contorno respira piano finché è visibile.
+  // Con "riduci movimento" restano accesi e fermi (lo stile base è già quello finale).
+  if (!fermo && 'IntersectionObserver' in window) {
+    var NSV = 'http://www.w3.org/2000/svg';
+    function el(tag, attrs, parent) { var e = document.createElementNS(NSV, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+    var azioni = document.querySelectorAll('.hero .btn-row .btn:not(.btn-ghost), .cta .btn:not(.btn-ghost), #chi-siamo .btn:not(.btn-ghost), form.sheet .next, form.sheet button[type="submit"]');
+    var accendi = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        accendi.unobserve(en.target);
+        en.target.classList.remove('cta-off');
+        en.target.classList.add('cta-on');
+      });
+    }, {threshold: 0.9, rootMargin: '0px 0px -10% 0px'});
+    var visibili = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { en.target.classList.toggle('cta-vis', en.isIntersecting); });
+    });
+    function adatta(b, svg) {
+      var w = b.offsetWidth, h = b.offsetHeight;
+      if (!w || !h) return;
+      svg.setAttribute('width', w); svg.setAttribute('height', h);
+      [].forEach.call(svg.querySelectorAll('rect'), function (r) {
+        r.setAttribute('x', 1); r.setAttribute('y', 1); r.setAttribute('width', w - 2); r.setAttribute('height', h - 2);
+      });
+      var piste = svg.querySelector('.t-piste');
+      if (piste) piste.setAttribute('transform', 'translate(0 ' + (h / 2) + ')');
+    }
+    [].forEach.call(azioni, function (b) {
+      var svg = el('svg', {'class': 'cta-trace', 'aria-hidden': 'true'});
+      // tre piste corte che arrivano da sinistra, solo se a sinistra c'è spazio
+      if (b.getBoundingClientRect().left > 60) {
+        var g = el('g', {'class': 't-piste'}, svg);
+        [-6, 0, 6].forEach(function (dy) {
+          el('path', {d: 'M -46 ' + (dy * 2.2) + ' L -22 ' + (dy * 2.2) + ' L -8 ' + dy + ' L 0 ' + dy, pathLength: 100, 'class': 't-stub'}, g);
+        });
+      }
+      ['t-ring', 't-calm'].forEach(function (c) { el('rect', {rx: 2, pathLength: 100, 'class': c}, svg); });
+      b.appendChild(svg);
+      b.classList.add('cta-p', 'cta-off');
+      adatta(b, svg);
+      if ('ResizeObserver' in window) new ResizeObserver(function () { adatta(b, svg); }).observe(b);
+      accendi.observe(b);
+      visibili.observe(b);
+    });
   }
 
   // ---------- Modulo in due passi
