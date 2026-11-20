@@ -107,7 +107,8 @@
     // la corrente parte da sotto il claim (i pulsanti dell'apertura); il video in alto non fa parte del circuito
     var defsEls = {hero: [q('.hero-copy .btn-row')], a: [q('.comp-a'), q('.comp-a .pkg')], b: [q('.comp-b'), q('.comp-b .pkg')],
       c: [q('.comp-c'), q('.comp-c .pkg')], d: [q('.comp-d'), q('.comp-d .pkg')], e: [q('.comp-e'), q('.comp-e .pkg')],
-      gantt: [q('#metodo .gantt')], people: [q('#chi-siamo .people')], faq: [q('#faq .faq-list')], form: [q('#contatti form.sheet')]};
+      // su telefono e tablet il mazzo è una fila che scorre di lato e parte dal bordo dello schermo: la pista si aggancia alla prima carta
+      gantt: W >= 1100 ? [q('#metodo .deck')] : [q('#metodo .deck'), q('#metodo .pcard')], people: [q('#chi-siamo .people')], faq: [q('#faq .faq-list')], form: [q('#contatti form.sheet')]};
     if (!grid) return null;
     for (var k0 in defsEls) if (!defsEls[k0][0] || (defsEls[k0].length > 1 && !defsEls[k0][1])) return null;
 
@@ -151,11 +152,16 @@
         var base = svgEl('path', {d: d, class: 'w-base'}, g);
         w.flows.push(svgEl('path', {d: d, class: 'w-flow'}, g));
         var len = base.getTotalLength();
-        [glow, base].forEach(function (pth) { pth.style.strokeDasharray = len + ' ' + (len + 40); pth.style.strokeDashoffset = len; });
+        if (w.cls !== 'sig') [glow, base].forEach(function (pth) { pth.style.strokeDasharray = len + ' ' + (len + 40); pth.style.strokeDashoffset = len; });
         w.paths.push({glow: glow, base: base, len: len});
       }
       w.len = w.paths[0].len;
-      [pts[0], pts[pts.length - 1]].forEach(function (p) { svgEl('circle', {cx: p[0], cy: p[1], r: 3.4, class: 'w-pad'}, g); });
+      var square = w.cls === 'data' || w.cls === 'sig';
+      [pts[0], pts[pts.length - 1]].forEach(function (p) {
+        if (square) svgEl('rect', {x: p[0] - 3.5, y: p[1] - 3.5, width: 7, height: 7, class: 'w-pad'}, g);
+        else svgEl('circle', {cx: p[0], cy: p[1], r: 3.4, class: 'w-pad'}, g);
+      });
+      if (w.cls === 'data') for (var v = 1; v < pts.length - 1; v++) svgEl('rect', {x: pts[v][0] - 3, y: pts[v][1] - 3, width: 6, height: 6, class: 'w-via'}, g);
       w.mid = svgEl('path', {d: chamfered(pts, pts)}, gRoute);
       w.midLen = w.mid.getTotalLength();
       w.head = svgEl('circle', {r: 4.2, class: 'w-head'}, g);
@@ -225,10 +231,30 @@
     // prezzi -> numeri: i margini dipendono dai prezzi. Si accendono quando entrambi i componenti sono accesi.
     if (wide) {
       var laneL = Math.round(col.l - 22), laneR = Math.round(col.r + 22);
-      var thin = function (key, A, B, pts) { var w = wire(key, pts, 1, 0, {cls: 'thin', both: [A, B]}); return w; };
+      var thin = function (key, A, B, pts) { var w = wire(key, pts, 2, 5, {cls: 'data', both: [A, B]}); return w; };
       thin('ca', N.c, N.a, [[N.c.r.l, N.c.inY], [laneL, N.c.inY], [laneL, N.a.outY], [N.a.r.l, N.a.outY]]);
       thin('bd', N.b, N.d, [[N.b.r.r, N.b.outY], [laneR, N.b.outY], [laneR, N.d.inY], [N.d.r.r, N.d.inY]]);
       thin('ce', N.c, N.e, [[N.c.r.l, N.c.outY], [laneL, N.c.outY], [laneL, N.e.inY], [N.e.r.l, N.e.inY]]);
+
+      // ---------- collegamenti tra sezioni lontane, su corsie più esterne del margine (solo dove c'è spazio)
+      // linea dati = due cose che si scambiano informazioni; linea di segnale = un'azione e il punto dove porta.
+      var LB = Math.round(col.l - 104), LC = Math.round(col.l - 150), RB = Math.round(col.r + 104), RC = Math.round(col.r + 150);
+      var okL = function (x) { return x > 10; }, okR = function (x) { return x < W - 10; };
+      var dk = docRect(q('#metodo .deck')), c1 = docRect(q('#metodo .pcard')), c2 = docRect(q('#metodo .pcard:nth-child(2)'));
+      // i titoli: la pista si ferma poco prima della prima lettera; il pulsante: il suo bordo, non la riga che lo contiene
+      var h2c = docRect(q('.contact-txt h2')), faq3 = docRect(q('#faq .h2')), btnEls = document.querySelectorAll('.hero-copy .btn-row .btn'), btns = docRect(btnEls[btnEls.length - 1]);
+      h2c.l -= 14; faq3.l -= 14;
+      // carta "Prima chiamata" -> "La prima chiamata" nei contatti: sono la stessa cosa
+      var laneD1 = okL(LC) ? LC : (okL(LB) ? LB : 0);
+      if (laneD1) wire('x-chiamata', [[c1.l, Math.round(c1.t + c1.h * 0.58)], [laneD1, Math.round(c1.t + c1.h * 0.58)], [laneD1, Math.round(h2c.t + h2c.h / 2)], [h2c.l, Math.round(h2c.t + h2c.h / 2)]], 2, 5, {cls: 'data', both: [N.gantt, N.form]});
+      // prezzi -> FAQ sui marketplace
+      if (okL(LB)) wire('x-marketplace', [[N.c.r.l, N.c.r.t + 40], [LB, N.c.r.t + 40], [LB, Math.round(faq3.t + faq3.h / 2)], [faq3.l, Math.round(faq3.t + faq3.h / 2)]], 2, 5, {cls: 'data', both: [N.c, N.faq]});
+      // numeri -> carta "Analisi e proposta": l'analisi parte dai numeri
+      wire('x-analisi', [[N.e.r.l, N.e.r.b - 30], [laneL, N.e.r.b - 30], [laneL, dk.t - 18], [Math.round(c2.l + c2.w / 2), dk.t - 18], [Math.round(c2.l + c2.w / 2), c2.t]], 2, 5, {cls: 'data', both: [N.e, N.gantt]});
+      // chi siamo -> carta "Prima chiamata": la prima chiamata la fate voi
+      if (okR(RB)) wire('x-noi', [[N.people.r.r, N.people.r.t + 60], [RB, N.people.r.t + 60], [RB, dk.t - 34], [Math.round(c1.l + c1.w * 0.35), dk.t - 34], [Math.round(c1.l + c1.w * 0.35), c1.t]], 1, 0, {cls: 'sig', both: [N.people, N.gantt]});
+      // pulsante dell'apertura -> modulo: il pulsante porta lì
+      if (okR(RC)) wire('x-iniziamo', [[btns.r, Math.round(btns.t + btns.h / 2)], [RC, Math.round(btns.t + btns.h / 2)], [RC, N.form.r.t + 90], [N.form.r.r, N.form.r.t + 90]], 1, 0, {cls: 'sig', both: [N.hero, N.form]});
     }
 
     // ---------- condensatori lungo la pista principale: si accendono quando passa la corrente
@@ -276,6 +302,8 @@
     ['gantt', 'people', 'faq', 'form'].forEach(function (k) { N[k].cargo = 'dot'; });
 
     light(N.hero);
+    N.gantt.open = N.gantt.el.classList.contains('is-open');
+    if (FERMO) { N.gantt.open = true; N.gantt.el.classList.add('is-open'); }
     sc.wires.forEach(function (w) { if (acceso[w.key] || FERMO) finish(w); });
     if (FERMO) sc.list.forEach(light);
     return sc;
@@ -352,7 +380,10 @@
         var dep = w.deps[0];
         var ready = w.both ? (w.both[0].lit && w.both[1].lit && t - Math.max(w.both[0].litAt, w.both[1].litAt) > 0.6)
           : !dep || (dep.state === 2 && dep.into && dep.into.litAt != null && t - dep.into.litAt >= w.delay);
-        if (ready && front >= w.y) { w.state = 1; w.t0 = t; w.dur = clamp(w.len / 1200, 0.35, 1.4); }
+        if (ready && front >= w.y) {
+          if (w.cls === 'sig') finish(w);
+          else { w.state = 1; w.t0 = t; w.dur = clamp(w.len / 1200, 0.35, 1.4); }
+        }
       }
       if (w.state === 1) {
         var u = ease((t - w.t0) / w.dur);
@@ -372,6 +403,8 @@
       if (w.state === 2 && w.y1 > vy - 80 && w.y0 < vy + vh + 80) {
         w.g.style.opacity = near ? 1 : (0.55 + 0.45 * energy).toFixed(3);
         var fo = (near ? 0.45 : 0.15) + 0.5 * energy;
+        if (w.cls === 'sig') { w.paths[0].base.style.strokeDashoffset = (-phase * 0.7).toFixed(1); continue; }
+        if (w.cls === 'data' && sc.packets.length < 6 && t - (w.lastPk || 0) > 3.2 + (w.key.length % 3)) { w.lastPk = t; packet(sc, w, 'dot'); }
         for (var f = 0; f < w.flows.length; f++) {
           w.flows[f].style.strokeDashoffset = (-phase - f * 7).toFixed(1);
           w.flows[f].style.opacity = fo.toFixed(3);
@@ -389,6 +422,13 @@
     }
     if (bd > vh * 0.42) best = null;
     setFocus(sc, best, t);
+    // il mazzo del metodo si scopre quando è sullo schermo e si richiude quando lo si lascia
+    var dk = sc.nodes.gantt;
+    if (dk && dk.lit) {
+      var dr = dk.r, dc = (dr.t + dr.b) / 2, inMid = dc > vy + vh * 0.2 && dc < vy + vh * 0.7, gone = dr.b < vy || dr.t > vy + vh;
+      if (inMid && !dk.open) { dk.open = true; dk.el.classList.add('is-open'); }
+      else if (gone && dk.open) { dk.open = false; dk.el.classList.remove('is-open'); }
+    }
     if (focus && focus.pins.length) {               // i piedini si riempiono finché si resta sul componente
       var on = Math.floor(focus.pins.length * clamp((t - focusAt) / 2.4, 0, 1));
       for (var pi = 0; pi < focus.pins.length; pi++) focus.pins[pi].classList.toggle('on', pi < on);

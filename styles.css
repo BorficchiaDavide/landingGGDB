@@ -37,7 +37,7 @@
 }
 
 *,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth;background:var(--bg);scroll-padding-top:5.5rem;scrollbar-color:var(--edge) var(--bg)}
+html{scroll-behavior:smooth;background:var(--bg);scrollbar-color:var(--edge) var(--bg)}
 body{
   margin:0;background:var(--bg);color:var(--text);min-height:100vh;
   font-family:var(--font);font-size:1.0625rem;line-height:1.55;
@@ -49,18 +49,24 @@ a{color:inherit;text-underline-offset:3px}
 a:hover{color:#fff}
 p{text-wrap:pretty}
 h1,h2,h3{margin:0;text-wrap:balance}
-h1,h2{letter-spacing:-.02em}
-section[id]{scroll-margin-top:84px}
+h1{letter-spacing:-.025em}
+h2{letter-spacing:-.02em}
+/* I link del menu portano il titolo della sezione subito sotto la barra fissa (4.5rem) con 2rem d'aria:
+   il margine annulla lo spazio interno della sezione (--pad-top), uguale per tutte. */
+:root{--pad-top:8rem;--nav-h:4.5rem}
+section[id]{scroll-margin-top:calc(var(--nav-h) + 2rem - var(--pad-top))}
+#top{scroll-margin-top:0}
 input,textarea,select,button{font:inherit}
 
 .wrap{max-width:var(--max);margin:0 auto;padding:0 1.5rem}
-.band{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-.rule{border-top:1px solid var(--border)}
-.pad{padding-top:8rem;padding-bottom:8rem}
+/* Le sezioni si separano con lo spazio e il cambio di fondo, non con righe sottili (apple-design § 12) */
+.band{background:var(--surface)}
+.rule{}
+.pad{padding-top:var(--pad-top);padding-bottom:var(--pad-top)}
 
 .eyebrow{margin:0 0 .75rem;font-family:var(--mono);font-size:.875rem;font-weight:500;color:var(--accent);letter-spacing:.06em;text-transform:uppercase}
-.h2{font-weight:700;font-size:clamp(1.75rem,3.5vw,2.5rem);line-height:1.1}
-.lead{color:var(--muted)}
+.h2,.contact-txt h2,.about-text .h2{font-weight:700;font-size:clamp(1.75rem,3.6vw,2.75rem);line-height:1.08;letter-spacing:-.022em}
+.lead{color:var(--muted);font-size:1.1875rem;line-height:1.5}
 
 /* Logo */
 .logo{display:block}
@@ -75,7 +81,10 @@ input,textarea,select,button{font:inherit}
   font-weight:600;font-size:1rem;text-decoration:none;white-space:nowrap;cursor:pointer;
   border:1px solid var(--accent);background:var(--accent);color:var(--accent-text);
 }
+.btn{transition:transform .1s ease-out,background-color .15s ease,border-color .15s ease,color .15s ease}
 .btn:hover{background:var(--text);border-color:var(--text);color:var(--accent-text)}
+.btn:active,form.sheet button[type=submit]:active,.reel-btn:active,.opt-btn:active span,summary:active{transform:scale(.97)}
+form.sheet button[type=submit],.reel-btn,.opt-btn span{transition:transform .1s ease-out,background-color .15s ease,border-color .15s ease,color .15s ease}
 .btn-ghost{background:transparent;color:var(--text);border-color:var(--edge)}
 .btn-ghost:hover{background:transparent;border-color:var(--text);color:var(--text)}
 .btn-lg{min-height:3.25rem;width:18.75rem;max-width:100%}
@@ -83,9 +92,11 @@ input,textarea,select,button{font:inherit}
 .btn-row{display:flex;flex-wrap:wrap;gap:.875rem}
 
 /* Header fisso */
-.nav{position:sticky;top:0;z-index:50;background:rgba(27,28,30,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+.nav{position:sticky;top:0;z-index:50;background:rgba(27,28,30,.92);backdrop-filter:blur(12px) saturate(140%);-webkit-backdrop-filter:blur(12px) saturate(140%)}
+.nav::after{content:"";position:absolute;left:0;right:0;top:100%;height:1.5rem;background:linear-gradient(rgba(27,28,30,.92),rgba(27,28,30,0));pointer-events:none}
+@media (prefers-reduced-transparency:reduce){.nav{background:var(--bg);backdrop-filter:none;-webkit-backdrop-filter:none}}
 .nav-in{max-width:var(--max);margin:0 auto;padding:.875rem 1.5rem;display:flex;gap:1rem;align-items:center;justify-content:space-between}
-.brand{display:flex;align-items:center;gap:.875rem;text-decoration:none}
+.brand{display:flex;align-items:center;gap:.875rem;text-decoration:none;min-height:var(--touch)}
 .payoff{border-left:1px solid var(--edge);padding-left:.875rem;font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);line-height:1.2}
 .nav-links{display:flex;gap:1.625rem;align-items:center;font-size:.9375rem}
 .nav-links a{text-decoration:none;color:var(--muted);display:inline-flex;align-items:center;min-height:var(--touch);white-space:nowrap}
@@ -98,7 +109,7 @@ input,textarea,select,button{font:inherit}
  * così il video si fonde con la pagina. Sotto, il claim e il resto dell'apertura.
  */
 .hero{padding-top:0;padding-bottom:8rem;overflow-x:clip}
-.hero-media{position:relative;margin:0 auto;width:min(100%,calc((100svh - 9rem) * 16 / 9),100rem);aspect-ratio:16/9}
+.hero-media{position:relative;margin:0 auto;width:min(100%,calc((100svh - 19rem) * 16 / 9),100rem);aspect-ratio:16/9}
 .hero-video{position:absolute;inset:0;
   -webkit-mask-image:linear-gradient(to right,transparent 0,#000 9%,#000 91%,transparent 100%),linear-gradient(to bottom,transparent 0,#000 7%,#000 78%,transparent 100%);
   -webkit-mask-composite:source-in;
@@ -111,7 +122,7 @@ input,textarea,select,button{font:inherit}
 .reel-btn:hover,.reel-btn:focus-visible{opacity:1;border-color:var(--text)}
 .reel .i-play,.reel:not(.is-playing) .i-pause{display:none}
 .reel:not(.is-playing) .i-play{display:block}
-.hero-copy{position:relative;margin-top:-6rem}
+.hero-copy{position:relative;margin-top:2.5rem}
 .where{display:flex;align-items:center;gap:.75rem}
 .faces{display:flex;flex:none}
 .faces img{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid var(--bg);background:var(--raised)}
@@ -123,9 +134,9 @@ input,textarea,select,button{font:inherit}
 .hero h1{font-weight:800;font-size:clamp(2.375rem,6vw,4.25rem);line-height:1.04;max-width:60rem}
 .hero h1 span{display:block;color:var(--accent)}
 .hero .big{margin:2rem 0 0;font-size:1.375rem;font-weight:600;max-width:42.5rem}
-.hero .sub{margin:.5rem 0 0;font-size:1.25rem;color:var(--muted);max-width:42.5rem}
+.hero .sub{margin:1.5rem 0 0;font-size:1.375rem;line-height:1.4;color:var(--muted);max-width:42.5rem}
 .hero .ask{margin:2rem 0 0;font-size:1.125rem;font-weight:600}
-.hero .btn-row{margin-top:1rem}
+.hero .btn-row{margin-top:2rem}
 
 /*
  * Vantaggi: scheda madre. Cinque chip nell'ordine in cui una carta attraversa il negozio:
@@ -135,7 +146,7 @@ input,textarea,select,button{font:inherit}
  * il lime compare solo sul chip a fuoco (quello al centro dello schermo, deciso da circuit.js).
  */
 .adv .lead{margin:0;max-width:42.5rem}
-.adv .h2{margin-bottom:.75rem;max-width:56rem}
+.adv .h2{margin-bottom:1rem;max-width:56rem}
 .mb{display:flex;flex-direction:column;gap:6.5rem;padding:5rem 0 2rem}
 .comp{position:relative;display:flex;flex-direction:column;gap:1.25rem}
 .pkg{
@@ -147,8 +158,8 @@ input,textarea,select,button{font:inherit}
 .pkg-media{position:relative;aspect-ratio:16/9;overflow:hidden;border-radius:6px;background:#111;cursor:pointer}
 .pkg-media video,.pkg-media img{display:block;width:100%;height:100%;object-fit:cover}
 .comp-text{display:flex;flex-direction:column;gap:.875rem;max-width:26rem}
-.comp-title{margin:0;font-family:var(--cond);font-weight:700;font-size:clamp(1.75rem,3vw,2.375rem);line-height:1.05;letter-spacing:.01em}
-.comp-title span{display:inline;padding:0 .18em .06em;background:var(--accent);color:var(--accent-text);
+.comp-title{margin:0;font-family:var(--cond);font-weight:700;font-size:clamp(1.75rem,3vw,2.375rem);line-height:1.28;letter-spacing:-.005em}
+.comp-title span{display:inline;padding:.02em .2em .06em;background:var(--accent);color:var(--accent-text);
   -webkit-box-decoration-break:clone;box-decoration-break:clone}
 .comp-note{margin:0;color:var(--muted);font-size:1.0625rem;line-height:1.55}
 .comp-b .comp-text,.comp-d .comp-text{align-self:flex-end}
@@ -179,35 +190,26 @@ input,textarea,select,button{font:inherit}
 .cta{margin-top:2.5rem;display:flex;flex-wrap:wrap;gap:1.25rem;align-items:center;justify-content:space-between;border:1px solid var(--edge);border-radius:var(--radius);padding:1.5rem 1.75rem;background:var(--bg)}
 .cta-txt{flex:1 1 320px}
 .cta-txt p{margin:0}
-.cta-txt .t{font-size:1.1875rem;font-weight:700}
+.cta-txt .t{font-size:1.25rem;line-height:1.3;font-weight:700}
 .cta-txt .s{margin-top:.25rem;color:var(--muted);font-size:1rem}
 .cta.on-surface{background:var(--surface)}
 
 /* Metodo */
 .method .h2{margin-bottom:1rem}
 .method .lead{margin:0 0 2.5rem;max-width:42.5rem}
-.gantt{border:1px solid var(--edge);border-radius:var(--radius);background:var(--surface);padding:1.375rem}
-.g-rows{display:flex;flex-direction:column;gap:1.125rem}
-.g-row{display:flex;gap:1.25rem;align-items:center}
-.g-label{flex:0 0 18.75rem}
-.g-title{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .625rem}
-.g-n{font-family:var(--cond);font-weight:700;font-size:1.75rem;line-height:1;color:var(--accent)}
-.g-name{font-size:1.0625rem;font-weight:600}
-.g-tag{padding:.125rem .625rem;border:1px solid var(--accent);border-radius:var(--radius);font-size:.75rem;font-weight:600;color:var(--accent)}
-.g-label p{margin:.25rem 0 0;font-size:.9375rem;color:var(--muted);line-height:1.45}
-.g-track{flex:1 1 auto;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));height:2rem;border-radius:var(--radius);background:repeating-linear-gradient(90deg,transparent 0,transparent calc(100%/12 - 1px),var(--border) calc(100%/12 - 1px),var(--border) calc(100%/12))}
-.g-track i{background:var(--accent);border-radius:2px;margin:4px 2px}
-.g-head{align-items:end}
-.g-head .g-label{visibility:hidden}
-.g-axis{flex:1 1 auto;display:flex;justify-content:space-between;border-bottom:2px solid var(--edge);padding-bottom:.5rem;font-family:var(--mono);font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
-.check{margin:1.5rem 0 0;display:flex;align-items:center;gap:.625rem;font-size:1.125rem;font-weight:600}
+.check{margin:2rem 0 0;display:flex;align-items:center;gap:.625rem;font-size:1.0625rem;font-weight:600}
 .check svg{stroke:var(--accent);flex:none}
 
-/* Chi siamo */
-.about{display:flex;flex-wrap:wrap;gap:2.5rem 3rem;align-items:flex-start}
-.about-text{flex:999 1 440px;min-width:0}
-.about-text .h2{font-size:clamp(1.875rem,3.8vw,2.75rem);line-height:1.08;margin-bottom:1.25rem}
-.about-text p:not(.eyebrow){margin:0;color:var(--muted);font-size:1.1875rem;max-width:35rem}
+/*
+ * Chi siamo, FAQ e contatti hanno lo stesso schema: testo a sinistra (titolo, frasi, un'azione) e scheda perla a destra.
+ * Un solo ritmo: titolo -> 1.25rem -> frasi (1rem tra l'una e l'altra) -> 2rem -> azione.
+ */
+.split{display:flex;flex-wrap:wrap;gap:3rem 4rem;align-items:flex-start}
+.split-txt{flex:1 1 320px;min-width:0;display:flex;flex-direction:column;gap:1rem}
+.split-txt .h2{margin-bottom:.25rem}
+.split-txt p{margin:0;color:var(--muted);font-size:1.125rem;line-height:1.55;max-width:35rem}
+.split-act{margin-top:1rem}
+.about-text{flex-basis:440px}
 .sheet{background:var(--sheet-bg);color:var(--sheet-ink);border-radius:var(--radius);color-scheme:light}
 .people{flex:1 1 340px;min-width:0;padding:1.625rem;display:flex;flex-direction:column;gap:1.125rem}
 .people-title{margin:0;font-family:var(--mono);font-size:.8125rem;letter-spacing:.06em;text-transform:uppercase;color:var(--sheet-muted)}
@@ -225,22 +227,27 @@ input,textarea,select,button{font:inherit}
 .story-body p{margin:0;color:var(--muted);font-size:1.125rem}
 blockquote{margin:.25rem 0 0;padding:.125rem 0 .125rem 1.5rem;border-left:1px solid var(--accent);font-size:1.1875rem;font-weight:600;line-height:1.45;color:var(--text)}
 
-/* FAQ */
-.faq{max-width:51.25rem;margin:0 auto;padding:8rem 1.5rem}
-.faq .h2{margin-bottom:2rem}
-.faq-list{display:flex;flex-direction:column;gap:.75rem}
+/* FAQ: due sezioni di fila sullo stesso fondo non sommano gli spazi */
+#faq{--pad-top:3rem}
+#faq .pad{padding-bottom:8rem}
+/* desktop: titolo e invito a sinistra, domande a destra; telefono: titolo, domande, invito */
+.faq-grid{display:grid;grid-template-columns:minmax(0,1fr);grid-template-areas:"t" "l" "m";gap:2rem}
+.faq-t{grid-area:t}.faq-list{grid-area:l}.faq-m{grid-area:m}
+@media (min-width:900px){
+  .faq-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);grid-template-areas:"t l" "m l";grid-template-rows:auto 1fr;gap:1.25rem 4rem;align-items:start}
+  .faq-m{align-self:start}
+}
+.faq-list{min-width:0;display:flex;flex-direction:column;gap:.75rem}
 details{border:1px solid var(--border);border-radius:var(--radius);background:var(--surface)}
 details[open]{border-color:var(--edge)}
 summary{
-  cursor:pointer;font-weight:600;font-size:1.125rem;padding:.75rem 1.375rem;min-height:var(--touch);
+  cursor:pointer;font-weight:600;font-size:1.0625rem;padding:.75rem 1.375rem;min-height:var(--touch);
   display:flex;align-items:center;justify-content:space-between;gap:1rem;list-style:none;
 }
 summary::-webkit-details-marker{display:none}
 summary::after{content:"+";font-family:var(--mono);font-weight:500;color:var(--accent);font-size:1.375rem;line-height:1}
 details[open] summary::after{content:"–"}
 details p{margin:0;padding:0 1.375rem 1.125rem;color:var(--muted)}
-.faq-more{margin-top:1.75rem;display:flex;flex-wrap:wrap;gap:1rem 1.25rem;align-items:center;justify-content:space-between}
-.faq-more p{margin:0;font-size:1.125rem;font-weight:600}
 
 /*
  * Superfici perla (60/30/10): i riquadri d'invito, il pannello del metodo e le domande sono schede vere,
@@ -252,13 +259,6 @@ details p{margin:0;padding:0 1.375rem 1.125rem;color:var(--muted)}
 .cta .btn:hover{background:var(--sheet-ink);border-color:var(--sheet-ink);color:var(--sheet-bg)}
 .cta .btn-ghost{background:transparent;color:var(--sheet-ink);border-color:var(--sheet-edge)}
 .cta .btn-ghost:hover{background:transparent;color:var(--sheet-ink);border-color:var(--sheet-ink)}
-.gantt{background:var(--sheet-bg);border-color:var(--sheet-edge);color:var(--sheet-ink)}
-.gantt .g-n{color:var(--sheet-ink)}
-.gantt .g-tag{border-color:var(--sheet-ink);color:var(--sheet-ink)}
-.gantt .g-label p{color:var(--sheet-muted)}
-.gantt .g-track{background:repeating-linear-gradient(90deg,transparent 0,transparent calc(100%/12 - 1px),var(--sheet-line) calc(100%/12 - 1px),var(--sheet-line) calc(100%/12))}
-.gantt .g-track i{box-shadow:inset 0 0 0 1px var(--sheet-ink)}
-.gantt .g-axis{border-bottom-color:var(--sheet-edge);color:var(--sheet-muted)}
 details{background:var(--sheet-bg);border-color:var(--sheet-edge);color:var(--sheet-ink)}
 details[open]{border-color:var(--sheet-ink)}
 summary::after{color:var(--sheet-ink)}
@@ -266,14 +266,14 @@ details p{color:var(--sheet-muted)}
 summary:focus-visible{outline-color:var(--sheet-ink)}
 
 /* Contatti e modulo: il modulo è un foglio perla */
-.contact{display:flex;flex-wrap:wrap;gap:3rem;align-items:flex-start;padding-top:8rem;padding-bottom:8rem}
-.contact-txt{flex:1 1 320px;min-width:0;display:flex;flex-direction:column;gap:1.125rem}
-.contact-txt h2{font-weight:700;font-size:clamp(1.875rem,4vw,2.75rem);line-height:1.1}
+.contact{display:flex;flex-wrap:wrap;gap:3rem 4rem;align-items:flex-start;padding-top:var(--pad-top);padding-bottom:var(--pad-top)}
+.contact-txt{flex:1 1 320px;min-width:0;display:flex;flex-direction:column;gap:1rem}
+
 .contact-txt p{margin:0;color:var(--muted)}
 .contact-txt .eyebrow{margin:0;color:var(--accent)}
 .contact-txt .alt{margin-top:.5rem;color:var(--faint);font-size:.9375rem}
 
-form.sheet{flex:1 1 460px;min-width:0;padding:1.875rem;display:flex;flex-direction:column;gap:1rem}
+form.sheet{flex:1 1 460px;min-width:0;padding:2rem;display:flex;flex-direction:column;gap:1rem}
 .field{display:flex;flex-direction:column;gap:.375rem}
 .field label,legend{font-size:.875rem;color:var(--sheet-muted)}
 legend{padding:0;margin-bottom:.375rem}
@@ -374,24 +374,23 @@ footer{border-top:1px solid var(--border)}
 }
 @media (max-width:640px){
   .nav-wa{display:none}
+  .nav .btn{font-size:.875rem;padding:0 .875rem}
   .payoff{display:none}
   .btn-row{max-width:100%;width:100%}
   .btn-lg{width:100%}
   .hero{padding-bottom:3.5rem}
   .hero-media{width:100%;aspect-ratio:auto;height:min(152vw,76svh)}
   .reel-video{object-position:center top}
-  .hero-copy{margin-top:-1.5rem}
+  .hero-copy{margin-top:1.5rem}
   .hero-top{flex-direction:column;align-items:flex-start;gap:.625rem;margin-bottom:1.25rem}
-  .hero h1{font-size:2.25rem}
+  .hero h1{font-size:2.25rem;letter-spacing:-.02em}
   .hero .big{font-size:1.1875rem;margin-top:1.25rem}
   .hero .sub{font-size:1.0625rem}
   .hero .ask{font-size:1.0625rem;margin-top:1.375rem}
-  .pad,.contact{padding-top:5rem;padding-bottom:5rem}
-  .faq{padding-top:5rem;padding-bottom:5rem}
-  .g-row{flex-direction:column;align-items:stretch;gap:.375rem}
-  .g-label{flex:none}
-  .g-head{display:none}
-  .g-rows{gap:.875rem}
+  :root{--pad-top:5rem;--nav-h:4.25rem}
+  #faq{--pad-top:2rem}
+  #faq .pad{padding-bottom:5rem}
+  .split{gap:2.5rem}
   summary{padding:.875rem 1.125rem;font-size:1.0625rem}
   details p{padding:0 1.125rem 1rem}
   form.sheet{padding:1.25rem}
@@ -400,6 +399,107 @@ footer{border-top:1px solid var(--border)}
 @media (max-width:480px){
   .fast .btn{width:100%}
 }
+/* telefoni stretti (320-359px): logo e pulsante della barra devono stare sulla stessa riga */
+@media (max-width:359px){
+  .nav-in{padding-left:1rem;padding-right:1rem;gap:.5rem}
+  .brand .logo{width:92px;height:auto}
+  .nav .btn{font-size:.8125rem;padding:0 .625rem}
+}
+
+/*
+ * Metodo Deckbuilding: le quattro fasi sono carte collezionabili, con l'anatomia di una carta vera:
+ * cornice scura, barra del nome con il costo (la fase), illustrazione, riga del tipo con il simbolo del set a destra,
+ * box del testo e numero di collezione. Si girano quando il mazzo è sullo schermo (.is-open, messo da circuit.js)
+ * e si richiudono quando si esce. Senza lo script restano scoperte.
+ */
+.deck{list-style:none;margin:4rem 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.5rem}
+.pcard{aspect-ratio:63/88;perspective:1400px}
+.pcard-in{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.4,0,.2,1)}
+.pcard-back,.pcard-front{position:absolute;inset:0;border-radius:4.5%/3.2%;-webkit-backface-visibility:hidden;backface-visibility:hidden}
+.pcard-front{display:flex;flex-direction:column;gap:6px;padding:9px;background:#121314;border:1px solid #3a3c40;color:var(--sheet-ink)}
+.pc-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:5px 6px 5px 10px;border-radius:7px 7px 4px 4px;background:var(--sheet-bg);box-shadow:inset 0 0 0 1px #84807a}
+.pcard-name{font-family:var(--cond);font-size:1.3125rem;font-weight:700;line-height:1.05;letter-spacing:-.005em}
+.pc-cost{flex:none;display:grid;place-items:center;width:1.625rem;height:1.625rem;border-radius:50%;background:var(--accent);color:var(--accent-text);font-family:var(--cond);font-weight:700;font-size:1.0625rem;box-shadow:inset 0 0 0 1.5px var(--sheet-ink)}
+.pc-art{position:relative;flex:none;aspect-ratio:2/1;overflow:hidden;border-radius:3px;background:#222326;box-shadow:inset 0 0 0 1px #45474b}
+.pc-art img{display:block;width:100%;height:100%;object-fit:cover;background:#141516}
+.pc-type{margin:0;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:4px 7px 4px 10px;border-radius:4px;background:var(--sheet-bg);box-shadow:inset 0 0 0 1px #84807a;font-size:.8125rem;font-weight:700;line-height:1.3;letter-spacing:.01em}
+/* Simbolo del set: la stanghetta del marchio (la stessa della favicon). Il colore è la rarità e cresce con le fasi:
+   inchiostro, argento, lime scuro, lime pieno. */
+.pc-set{flex:none;width:9px;height:18px;stroke:var(--sheet-ink);stroke-width:2.5;stroke-linejoin:round}
+.pcard:nth-child(1) .pc-set{fill:var(--sheet-ink)}
+.pcard:nth-child(2) .pc-set{fill:#a9a7a2}
+.pcard:nth-child(3) .pc-set{fill:#7d9e1c}
+.pcard:nth-child(4) .pc-set{fill:var(--accent)}
+.pc-text{flex:1;min-height:0;display:flex;flex-direction:column;gap:.5rem;padding:9px 11px 10px;border-radius:4px;background:var(--sheet-field);box-shadow:inset 0 0 0 1px var(--sheet-line)}
+.pc-rule{margin:0;font-size:.9375rem;font-weight:700;line-height:1.3;letter-spacing:-.003em}
+.pc-flavor{margin:auto 0 0;padding-top:.5rem;border-top:1px solid var(--sheet-line);font-size:.8125rem;line-height:1.35;letter-spacing:.01em;color:var(--sheet-muted)}
+.pc-foot{margin:0;display:flex;justify-content:space-between;padding:0 3px;font-family:var(--mono);font-size:.6875rem;line-height:1;letter-spacing:.06em;color:#8d8a83}
+.pcard-back{transform:rotateY(180deg);display:flex;align-items:center;justify-content:center;background:#1f2023;border:1px solid #45474b}
+.pcard-back::before{content:"";position:absolute;inset:9px;border:1px solid #3a3c40;border-radius:3.5%/2.5%}
+.pcard-back::after{content:"";position:absolute;inset:22px;border:1px solid #2e3034;border-radius:50%/36%}
+.pcard-back .logo{position:relative;z-index:1;width:56%;height:auto}
+/* coperte (stessa posizione delle scoperte, così le piste toccano il bordo) finché il mazzo non è sullo schermo; si scoprono lente, una alla volta, senza rimbalzo */
+.js-circuit .deck:not(.is-open) .pcard-in{transform:rotateY(180deg)}
+/* La curva è simmetrica: la carta si vede girare per tutta la durata (con una curva "ease-out" il giro
+   avviene quasi tutto nel primo quinto e sembra uno scatto). */
+.deck.is-open .pcard-in{transition:transform 1.6s cubic-bezier(.6,0,.3,1)}
+.deck.is-open .pcard:nth-child(2) .pcard-in{transition-delay:.95s}
+.deck.is-open .pcard:nth-child(3) .pcard-in{transition-delay:1.9s}
+.deck.is-open .pcard:nth-child(4) .pcard-in{transition-delay:2.8s}
+@media (max-width:900px){.deck{grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}}
+@media (max-width:640px){
+  /* su telefono le carte sono una mano da scorrere di lato */
+  .deck{display:flex;gap:.875rem;margin:2.5rem -1.5rem 0;padding:.5rem 1.5rem 1rem;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:1.5rem;scrollbar-width:none}
+  .deck::-webkit-scrollbar{display:none}
+  .pcard{flex:0 0 74vw;max-width:20rem;scroll-snap-align:start}
+}
+
+/* Modulo guidato: prima i bottoni, poi i campi da scrivere (compaiono dopo la prima scelta) */
+.opts{display:flex;flex-direction:column;gap:.5rem}
+.opts legend{font-size:1.25rem;line-height:1.3;font-weight:700;color:var(--sheet-ink);margin-bottom:.25rem}
+.opt-hint{margin:0;font-size:.875rem;color:var(--sheet-muted)}
+.opt-row{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.375rem}
+.opt-btn{position:relative;cursor:pointer}
+.opt-btn input{position:absolute;opacity:0;width:1px;height:1px}
+.opt-btn span{display:inline-flex;align-items:center;min-height:var(--touch);padding:0 1rem;border:1px solid var(--sheet-edge);border-radius:999px;background:var(--sheet-field);color:var(--sheet-ink);font-size:.9375rem;font-weight:600;transition:background-color .2s ease,border-color .2s ease}
+.opt-btn:hover span{border-color:var(--sheet-ink)}
+.opt-btn input:checked+span{background:var(--accent);border-color:var(--sheet-ink)}
+.opt-btn input:focus-visible+span{outline:2px solid var(--sheet-ink);outline-offset:2px}
+form.guided{gap:0}
+.step{display:flex;flex-direction:column;gap:1.75rem}
+.step:focus{outline:none}
+.step-n{margin:0;font-size:.875rem;font-weight:600;color:var(--sheet-muted)}
+.step1 .step-n{margin-bottom:-1.125rem}
+.step-head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin:-.75rem 0 -1.5rem}
+.step-head .back{min-height:0;padding:.75rem .25rem}
+.step-title{font-size:1.25rem;line-height:1.3;font-weight:700;color:var(--sheet-ink)}
+.recap{margin:0;font-size:.9375rem;color:var(--sheet-muted)}
+.step2{gap:1.25rem}
+.step2 .step-title{margin:0 0 -.75rem}
+.back{min-height:var(--touch);padding:0 .25rem;border:0;background:none;color:var(--sheet-ink);font-weight:600;font-size:.9375rem;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.back:hover{text-decoration-thickness:2px}
+form.sheet .next{align-self:flex-start;min-width:12rem;min-height:3.25rem;padding:0 1.5rem;border:1px solid var(--sheet-ink);border-radius:var(--radius);background:var(--accent);color:var(--accent-text);font-weight:700;font-size:1rem;cursor:pointer;transition:transform .1s ease-out,background-color .15s ease,color .15s ease}
+form.sheet .next:hover{background:var(--sheet-ink);color:var(--sheet-bg)}
+form.sheet .next:active{transform:scale(.97)}
+/* senza JavaScript: tutto visibile, niente Avanti né Modifica */
+form.guided:not(.js-guided) .next,form.guided:not(.js-guided) .back,form.guided:not(.js-guided) .step-n,form.guided:not(.js-guided) .recap{display:none}
+form.guided:not(.js-guided) .step2{margin-top:1.75rem;padding-top:1.75rem;border-top:1px solid var(--sheet-line)}
+.js-guided:not(.open) .step2{display:none}
+.js-guided.open .step1{display:none}
+.js-guided.open .step2{animation:step2-in .4s cubic-bezier(.2,.7,.2,1)}
+@keyframes step2-in{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
+
+/* Chi siamo: un solo racconto, le persone e i progetti sulla scheda accanto */
+.people .person img{width:88px;height:88px}
+.people .chips{gap:.375rem}
+.split .people{flex:0 1 22rem}
+/* Chi siamo: una frase d'apertura più grande, il racconto, poi la frase che converte nella fascia lime */
+.split-txt .about-lead{color:var(--text);font-size:1.3125rem;line-height:1.45}
+.punch{margin:1rem 0 0;text-wrap:balance;font-family:var(--cond);font-weight:700;font-size:clamp(2rem,3.6vw,2.875rem);line-height:1.22;letter-spacing:-.005em;max-width:none}
+.split-txt .punch{color:var(--accent-text);font-size:clamp(2rem,3.6vw,2.875rem);line-height:1.22;max-width:none}
+.punch span{background:var(--accent);padding:.02em .22em .06em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.split-act.btn-row{margin-top:1.25rem}
+.people .chips{margin-top:-.25rem}
 
 /*
  * Scheda madre (circuit.js): la pagina è il circuito del promo.
@@ -430,6 +530,20 @@ main>section>*,footer>*{position:relative;z-index:1}
 .main .w-off{stroke-width:2.6}
 .w.main .w-base{stroke-width:2.6;opacity:.72}
 .w.main .w-glow{stroke-width:12}
+/* Linea dati: due piste sottili, vias quadrati nelle curve, impulsi che passano.
+   Linea di segnale: una pista tratteggiata che marcia con lo scorrimento. */
+.data .w-off{stroke-width:1.5;stroke:#33353a}
+.w.data .w-base{stroke-width:1.7;opacity:.72}
+.w.data .w-glow,.w.data .w-flow,.w.data .w-halo{display:none}
+.w-via{fill:var(--bg);stroke:#3a3c40;stroke-width:1.4;transition:stroke .4s ease}
+.w.data.on .w-via{stroke:var(--text)}
+.sig .w-off{stroke-width:1.6;stroke:#33353a;stroke-dasharray:6 7}
+.w.sig{opacity:0;transition:opacity .6s ease}
+.w.sig.on{opacity:1}
+.w.sig .w-base{stroke-width:1.8;stroke-dasharray:6 7;opacity:.8}
+.w.sig .w-glow,.w.sig .w-flow,.w.sig .w-halo,.w.sig .w-head{display:none}
+rect.w-pad{rx:1}
+.pk-dot{width:7px;height:7px;border-radius:50%;background:#f6ffe0}
 .thin .w-off{stroke-width:1.2;stroke:#2c2e32}
 .w.thin .w-base{stroke-width:1.3;opacity:.38}
 .w.thin .w-glow,.w.thin .w-flow,.w.thin .w-halo{display:none}
@@ -456,7 +570,7 @@ main>section>*,footer>*{position:relative;z-index:1}
  * Stati dei componenti (solo se lo script del circuito è attivo):
  * spenti e grigi finché la corrente non arriva (.is-lit), lime solo quando sono a fuoco (.is-focus).
  */
-.gantt,.people,form.sheet,details{transition:border-color .5s ease,box-shadow .6s ease}
+.people,form.sheet,details{transition:border-color .5s ease,box-shadow .6s ease}
 .pkg-media{transition:filter .8s ease}
 .js-circuit .comp:not(.is-lit) .pkg-media{filter:grayscale(.9) brightness(.5)}
 .js-circuit .comp:not(.is-lit) .pkg{background:#2a2c30;border-color:#3a3c40}
@@ -469,17 +583,13 @@ main>section>*,footer>*{position:relative;z-index:1}
 .people.is-focus,form.sheet.is-focus{box-shadow:0 0 0 1px var(--accent)}
 .faq-list.is-focus details{border-color:var(--sheet-ink)}
 .comp.is-hit .pkg{border-color:var(--accent)}
-/* Metodo: le barre si accendono in ordine, come le fasi */
-.g-track i{transition:background-color .45s ease}
-.js-circuit .gantt .g-track i{background:#d2cec4;box-shadow:none}
-.js-circuit .gantt.is-lit .g-track i{background:var(--accent);box-shadow:inset 0 0 0 1px var(--sheet-ink)}
-.gantt.is-lit .g-row:nth-child(3) .g-track i{transition-delay:.35s}
-.gantt.is-lit .g-row:nth-child(4) .g-track i{transition-delay:.7s}
-.gantt.is-lit .g-row:nth-child(5) .g-track i{transition-delay:1.05s}
 
 /* Riduci movimento: niente scorrimento animato né entrate; i video restano fermi sul poster e il circuito è già acceso e fermo */
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
+  .pcard-in{transition:none !important}
+  .deck .pcard-in{transition-delay:0s !important}
+  .js-guided.open .step2{animation:none}
   .dock{transition:none}
-  .gantt,.people,form.sheet,.pkg,.pkg-media,.comp-title span,details,.g-track i,.b-pin{transition:none !important}
+  .people,form.sheet,.pkg,.pkg-media,.comp-title span,details,.b-pin{transition:none !important}
 }
