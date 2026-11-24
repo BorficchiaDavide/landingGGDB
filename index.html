@@ -15,6 +15,14 @@
 <meta property="og:locale" content="it_IT">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231b1c1e'/%3E%3Cpath d='M9 6l7 9v11l-7-9z' fill='%23c5f23a'/%3E%3C/svg%3E">
+<script>
+try {
+  var q = new URLSearchParams(location.search).get('notrack');
+  if (q === '1') localStorage.setItem('umami.disabled', '1');
+  if (q === '0') localStorage.removeItem('umami.disabled');
+} catch (e) {}
+</script>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="bbd655cf-6ce8-4dc6-accc-16206d7ab82c" data-domains="borficchiadavide.github.io,ggdb-tcg.github.io"></script>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -365,6 +373,48 @@ Scrivici su WhatsApp</a></div>
 
 <script>
 (function () {
+  // Analytics calls must never break the page: if Umami is blocked or not loaded yet, they do nothing.
+  function track(name, data) {
+    try { if (window.umami && window.umami.track) return Promise.resolve(window.umami.track(name, data)); } catch (e) {}
+    return Promise.resolve();
+  }
+  var SEZIONI = {top: 'hero', vantaggi: 'vantaggi', metodo: 'metodo', 'chi-siamo': 'chi siamo', faq: 'faq', contatti: 'contatti'};
+  function posizione(el) {
+    if (el.closest('header')) return 'header';
+    if (el.closest('.dock')) return 'barra in basso';
+    var s = el.closest('section[id]');
+    return s ? (SEZIONI[s.id] || s.id) : 'footer';
+  }
+  // Button clicks, labelled by where on the page they were tapped.
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a');
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    if (href.indexOf('wa.me') > -1) track('Clic WhatsApp', {posizione: posizione(a)});
+    else if (href === '#contatti') track('Clic Iniziamo', {posizione: posizione(a)});
+    else if (href.indexOf('privacy') > -1) track('Clic privacy', {posizione: posizione(a)});
+  });
+  // Which FAQ get opened.
+  document.querySelectorAll('#faq details').forEach(function (d) {
+    d.addEventListener('toggle', function () {
+      if (d.open) track('FAQ aperta', {domanda: d.querySelector('summary').textContent.trim()});
+    });
+  });
+  // How far people scroll: each section counted once per visit.
+  // A low threshold, because on phones some sections are taller than the screen.
+  if ('IntersectionObserver' in window) {
+    var visto = {};
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting || visto[en.target.id]) return;
+        visto[en.target.id] = true;
+        track('Sezione vista', {sezione: SEZIONI[en.target.id] || en.target.id});
+        io.unobserve(en.target);
+      });
+    }, {threshold: 0.1});
+    document.querySelectorAll('section[id]').forEach(function (s) { if (s.id !== 'top') io.observe(s); });
+  }
+
   var fermo = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   function avvia(v) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
 
@@ -401,6 +451,7 @@ Scrivici su WhatsApp</a></div>
       bSuono.setAttribute('aria-label', rv.muted ? "Attiva l'audio" : "Disattiva l'audio");
       reel.classList.toggle('is-sound', !rv.muted);
       if (!rv.muted) {
+        track('Video promo audio');
         if (rv.paused) { vuoleVederlo = true; avvia(rv); }
       }
     });
@@ -417,10 +468,14 @@ Scrivici su WhatsApp</a></div>
   // se il circuito non è attivo, ogni clip parte quando il suo chip è in vista.
   var scheda = document.querySelector('.mb');
   if (scheda) {
+    var viste = {};
     var clip = [].slice.call(scheda.querySelectorAll('video'));
     clip.forEach(function (v, i) {
       var comp = v.closest('.comp');
       if (fermo) v.setAttribute('data-fermo', '1');
+      v.addEventListener('play', function () {
+        if (!viste[i]) { viste[i] = true; track('Clip vista', {clip: comp.querySelector('h3').textContent}); }
+      });
       comp.querySelector('.pkg-media').addEventListener('click', function () {
         if (v.paused) { v.removeAttribute('data-fermo'); avvia(v); }
         else { v.setAttribute('data-fermo', '1'); v.pause(); }
@@ -504,6 +559,7 @@ Scrivici su WhatsApp</a></div>
 
   // ---------- Modulo in due passi
   // Passo 1: si sceglie con i bottoni (cosa fa perdere tempo, dove vendi) e si preme Avanti.
+  // Le scelte del passo 1 arrivano subito su Umami, anche se poi il modulo non viene inviato.
   // Passo 2: nome e negozio (obbligatori), contatto e note facoltativi, privacy.
   // Senza JavaScript i due passi sono visibili insieme e resta la validazione nativa del browser.
   var form = document.querySelector('form[action*="web3forms"]');
@@ -512,7 +568,8 @@ Scrivici su WhatsApp</a></div>
   form.noValidate = true;
   var gTempo = document.getElementById('g-tempo'), gDove = document.getElementById('g-dove');
   var contatto = document.getElementById('f-contatto'), privacyEl = document.getElementById('f-privacy');
-  var inviando = false, tentato = false;
+  var CAMPI = {'f-nome': 'nome', 'f-negozio': 'negozio', 'f-contatto': 'contatto', 'f-altro': 'campo libero', 'f-privacy': 'privacy'};
+  var iniziato = false, inviato = false, inviando = false, ultimoCampo = '', compilati = {}, tentato = false;
 
   // da dove arriva il visitatore: ?da=gamics nel link del QR, invisibile in pagina
   try { var da = new URLSearchParams(location.search).get('da'); if (da) document.getElementById('h-da').value = da.slice(0, 40); } catch (e) {}
@@ -540,12 +597,14 @@ Scrivici su WhatsApp</a></div>
     if (!scelte(gTempo).length) {
       segna('tempo', null, gTempo.querySelector('.opt-row'), 'Scegli almeno una voce.');
       gTempo.querySelector('input').focus();
+      track('Form errore', {campo: 'scelte'});
       return false;
     }
     segna('tempo', null, gTempo.querySelector('.opt-row'), '');
     var t = scelte(gTempo), d = scelte(gDove);
     recap.textContent = 'Ti fa perdere tempo: ' + t.join(', ').toLowerCase() + '.' + (d.length ? ' Vendi: ' + d.join(', ').replace(/^In /, 'in ').replace(/, In /g, ', in ').replace(/Sul mio sito/, 'sul tuo sito') + '.' : '');
     form.classList.add('open');
+    track('Form passo 1', {tempo: t.join(', '), dove: d.join(', ')});
     var top = form.getBoundingClientRect().top;
     // il modulo deve ripartire dall'alto, appena sotto la barra fissa
     var barra = document.querySelector('.nav').getBoundingClientRect().bottom + 16;
@@ -556,14 +615,27 @@ Scrivici su WhatsApp</a></div>
   form.querySelector('.next').addEventListener('click', apri);
   form.querySelector('.back').addEventListener('click', function () {
     form.classList.remove('open');
+    track('Form indietro');
     (gTempo.querySelector('input:checked') || gTempo.querySelector('input')).focus();
   });
   form.addEventListener('change', function (e) {
     var t = e.target;
     if (t.closest('.opts')) {
+      if (!iniziato) { iniziato = true; track('Form iniziato'); }
+      if (t.checked) track('Form scelta', {gruppo: t.closest('.opts').id === 'g-tempo' ? 'tempo' : 'dove', voce: t.value});
       if (t.closest('#g-tempo') && scelte(gTempo).length && msgEl.tempo) segna('tempo', null, gTempo.querySelector('.opt-row'), '');
     }
+    var nome = CAMPI[t.id];
+    if (nome && !compilati[nome] && (t.type === 'checkbox' ? t.checked : String(t.value).trim() !== '')) {
+      compilati[nome] = true; track('Form campo compilato', {campo: nome});
+    }
     if (tentato) controlla();
+  });
+  form.addEventListener('focusin', function (e) {
+    var nome = CAMPI[e.target.id];
+    if (!nome) return;
+    ultimoCampo = nome;
+    if (!iniziato) { iniziato = true; track('Form iniziato'); }
   });
   form.addEventListener('input', function () { if (tentato) controlla(); });
 
@@ -593,6 +665,7 @@ Scrivici su WhatsApp</a></div>
     var errori = controlla();
     if (errori.length) {
       var primo = errori[0];
+      track('Form errore', {campo: CAMPI[primo.id] || (primo.closest('.opts') ? 'scelte' : 'altro')});
       var focus = primo.matches && primo.matches('input,textarea') ? primo : gTempo.querySelector('input');
       focus.focus();
       return;
@@ -605,7 +678,7 @@ Scrivici su WhatsApp</a></div>
     if (inviando) return;
     var bot = form.querySelector('[name="botcheck"]');
     if (bot && bot.checked) return;
-    inviando = true;
+    inviando = true; inviato = true;
     var bottone = form.querySelector('button[type="submit"]'), testo = bottone.textContent;
     bottone.disabled = true; bottone.textContent = 'Invio in corso…';
     var dati = new FormData(form);
@@ -617,8 +690,10 @@ Scrivici su WhatsApp</a></div>
       .then(function (ok) {
         clearTimeout(stop);
         if (ok) {
-          location.href = 'grazie.html';
+          var attesa = new Promise(function (r) { setTimeout(r, 800); });
+          Promise.race([track('Form inviato', {tempo: scelte(gTempo).join(', ')}), attesa]).then(function () { location.href = 'grazie.html'; });
         } else {
+          track('Form fallito');
           inviando = false; bottone.disabled = false; bottone.textContent = testo;
           mostraAlternativa();
         }
@@ -646,6 +721,9 @@ Scrivici su WhatsApp</a></div>
     form.appendChild(box);
     box.scrollIntoView({behavior: 'smooth', block: 'center'});
   }
+  window.addEventListener('pagehide', function () {
+    if (iniziato && !inviato) track('Form abbandonato', {ultimo_campo: ultimoCampo});
+  });
 })();
 </script>
 <script src="circuit.js" defer></script>
